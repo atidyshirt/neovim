@@ -3,6 +3,12 @@ local ignore_patterns = require("tvl.ignore_patterns")
 return {
   {
     "nvim-telescope/telescope.nvim",
+    dependencies = {
+      {
+        "nvim-telescope/telescope-live-grep-args.nvim" ,
+        version = "^1.0.0",
+      },
+    },
     cmd = "Telescope",
     version = false,
     opts = {

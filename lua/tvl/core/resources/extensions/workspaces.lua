@@ -1,6 +1,14 @@
 return {
   {
     "atidyshirt/neoscopes",
+
+    dependencies = {
+      { "nvim-telescope/telescope.nvim" },
+      {
+        "nvim-telescope/telescope-live-grep-args.nvim" ,
+        version = "^1.0.0",
+      },
+    },
     opts = {
       enable_scopes_from_npm = true,
       scopes = {
@@ -8,6 +16,7 @@ return {
       },
     },
     config = function(_, opts)
+      require('telescope').load_extension('live_grep_args')
       require("neoscopes").setup(opts)
       local scopes = require "neoscopes"
       if vim.fn.filereadable(vim.fn.stdpath "config" .. "/lua/scopes.lua") == 1 then
@@ -35,7 +44,7 @@ return {
         }
       end
       _G.neoscopes_live_grep = function()
-        require("telescope.builtin").live_grep {
+        require("telescope").extensions.live_grep_args.live_grep_args {
           search_dirs = get_search_dirs(),
         }
       end

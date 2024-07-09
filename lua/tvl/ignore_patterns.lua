@@ -19,7 +19,7 @@ return {
   ".settings/",
   ".vscode/",
   "__pycache__/",
-  "build/",
+  "dist/",
   "gradle/",
   "node_modules/",
   "%.pdb",
