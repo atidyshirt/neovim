@@ -59,6 +59,7 @@ function TextIconOverrideHandler:override_icons_with_text_if_needed()
     self.override_gitsigns,
     self.override_kinds,
     self.override_bbq,
+    self.override_noice,
   }
   if vim.g.nerd_font_enabled ~= true then
     for _, override_function in pairs(overrides) do
