@@ -37,6 +37,13 @@ return {
     ellipsis = "…",
     separator = "",
   },
+  noice = {
+    cmdline = { icon = "  " },
+    search_down = { icon = "  󰄼" },
+    search_up = { icon = "  " },
+    lua = { icon = "  " },
+    async_job = { pattern = "^:%s*AsyncRunWithNotify ", icon = "  " },
+  },
   kinds = {
     Array = "",
     Boolean = "",

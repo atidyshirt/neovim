@@ -31,6 +31,16 @@ function TextIconOverrideHandler:override_gitsigns ()
     }
 end
 
+function TextIconOverrideHandler:override_noice ()
+  self.icons.noice = {
+    cmdline = { icon = " > " },
+    search_down = { icon = "/" },
+    search_up = { icon = "/" },
+    lua = { icon = " > " },
+    async_job = { pattern = "^:%s*AsyncRunWithNotify ", icon = " > " },
+  }
+end
+
 function TextIconOverrideHandler:override_bbq ()
   self.icons.bbq_symbols.separator = '>'
 end

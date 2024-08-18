@@ -1,19 +1,14 @@
+local Icon = require("tvl.core.icons")
+
 return {
   {
     "folke/noice.nvim",
-    enabled = vim.g.nerd_font_enabled,
     event = "VeryLazy",
     opts = {
       cmdline = {
         enabled = true,
         view = "cmdline",
-        format = {
-          cmdline = { icon = "  " },
-          search_down = { icon = "  󰄼" },
-          search_up = { icon = "  " },
-          lua = { icon = "  " },
-          async_job = { pattern = "^:%s*AsyncRunWithNotify ", icon = "  " },
-        },
+        format = Icon.noice,
       },
       lsp = {
         progress = { enabled = false },
