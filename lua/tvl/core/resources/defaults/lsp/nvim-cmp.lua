@@ -39,7 +39,6 @@ return {
           ["<CR>"] = cmp.mapping.confirm({ select = true }),
         }),
         sources = cmp.config.sources({
-          { name = "neorg" },
           { name = "nvim_lsp" },
           { name = "luasnip" },
           { name = "buffer" },
