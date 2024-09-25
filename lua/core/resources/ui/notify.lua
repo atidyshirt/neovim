@@ -1,5 +1,5 @@
-local Util = require("tvl.util")
-local Icon = require("tvl.core.icons")
+local Util = require("util")
+local Icon = require("core.icons")
 
 return {
   {

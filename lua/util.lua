@@ -141,7 +141,7 @@ end
 M.load = function(name)
   local Util = require("lazy.core.util")
   -- always load lazyvim, then user file
-  local mod = "tvl.core." .. name
+  local mod = "core." .. name
   Util.try(function()
     require(mod)
   end, {
@@ -198,7 +198,7 @@ M.generate_borderchars = function(type, order, opts)
   if order == nil then
     order = "t-r-b-l-tl-tr-br-bl"
   end
-  local border_icons = require("tvl.core.icons").borders
+  local border_icons = require("core.icons").borders
   --- @type BorderIcons
   local border = vim.tbl_deep_extend("force", border_icons[type or "empty"], opts or {})
 

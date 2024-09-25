@@ -1,4 +1,4 @@
-local Util = require("tvl.util")
+local Util = require("util")
 
 return {
   {

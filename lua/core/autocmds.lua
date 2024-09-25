@@ -1,4 +1,4 @@
-local Util = require("tvl.util")
+local Util = require("util")
 
 -- Highlight on yank
 vim.api.nvim_create_autocmd({ "TextYankPost" }, {

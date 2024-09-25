@@ -1,4 +1,4 @@
-local defaults = require('tvl.core.icon_defaults')
+local defaults = require('core.icon_defaults')
 
 ---@class TextIconOverrideHandler
 local TextIconOverrideHandler = {}

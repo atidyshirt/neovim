@@ -49,7 +49,7 @@ return {
     },
     config = function()
       require("refactoring").setup({})
-      require("lua.tvl.core.resources.defaults.core.telescope").load_extension("refactoring")
+      require("lua.core.resources.defaults.core.telescope").load_extension("refactoring")
     end,
   },
 }

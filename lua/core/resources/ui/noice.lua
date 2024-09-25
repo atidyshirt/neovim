@@ -1,4 +1,4 @@
-local Icon = require("tvl.core.icons")
+local Icon = require("core.icons")
 
 return {
   {

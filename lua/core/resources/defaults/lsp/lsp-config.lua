@@ -68,20 +68,20 @@ return {
       attach_handlers = {},
     },
     config = function(_, opts)
-      local Util = require("tvl.util")
+      local Util = require("util")
       Util.on_attach(function(client, buffer)
-        require("tvl.config.lsp.navic").attach(client, buffer)
-        require("tvl.config.lsp.keymaps").attach(client, buffer)
-        require("tvl.config.lsp.inlayhints").attach(client, buffer)
-        require("tvl.config.lsp.gitsigns").attach(client, buffer)
+        require("config.lsp.navic").attach(client, buffer)
+        require("config.lsp.keymaps").attach(client, buffer)
+        require("config.lsp.inlayhints").attach(client, buffer)
+        require("config.lsp.gitsigns").attach(client, buffer)
       end)
 
       -- diagnostics
-      vim.diagnostic.config(require("tvl.config.lsp.diagnostics")["on"])
+      vim.diagnostic.config(require("config.lsp.diagnostics")["on"])
 
       local servers = opts.servers
       local ext_capabilites = vim.lsp.protocol.make_client_capabilities()
-      local capabilities = require("tvl.util").capabilities(ext_capabilites)
+      local capabilities = require("util").capabilities(ext_capabilites)
 
       local function setup(server)
         local server_opts = vim.tbl_deep_extend("force", {

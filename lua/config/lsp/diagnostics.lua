@@ -1,8 +1,8 @@
-local Util = require("tvl.util")
+local Util = require("util")
 vim.g.diagnostics_enabled = true
 
 local function get_diagnostics()
-  for name, icon in pairs(require("tvl.core.icons").diagnostics) do
+  for name, icon in pairs(require("core.icons").diagnostics) do
     local function firstUpper(s)
       return s:sub(1, 1):upper() .. s:sub(2)
     end

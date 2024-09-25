@@ -1,5 +1,5 @@
-local Util = require("tvl.util")
-local Icons = require("tvl.core.icons")
+local Util = require("util")
+local Icons = require("core.icons")
 
 local config = {
   close_if_last_window = true, -- Close Neo-tree if it is the last window left in the tab
@@ -112,7 +112,7 @@ config.commands = {
   end,
 }
 
-config.filesystem.components = require("tvl.config.neo-tree.sources.filesystem.components")
+config.filesystem.components = require("config.neo-tree.sources.filesystem.components")
 local function hideCursor()
   vim.cmd([[
     setlocal guicursor=n:block-Cursor

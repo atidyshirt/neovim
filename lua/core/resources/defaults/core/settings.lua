@@ -1,4 +1,4 @@
-local util = require("tvl.util")
+local util = require("util")
 
 vim.g.nerd_font_enabled = true
 vim.g.luarocks_enabled = true

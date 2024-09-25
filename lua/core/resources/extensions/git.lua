@@ -1,5 +1,5 @@
-local Util = require("tvl.util")
-local Icons = require("tvl.core.icons")
+local Util = require("util")
+local Icons = require("core.icons")
 
 return {
   { "tpope/vim-fugitive" },

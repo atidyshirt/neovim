@@ -10,7 +10,7 @@ return {
       colorful = true,
     },
     config = function(_, opts)
-      local lualine_config = require("tvl.config.lualine")
+      local lualine_config = require("config.lualine")
       lualine_config.setup(opts)
       lualine_config.load()
     end,

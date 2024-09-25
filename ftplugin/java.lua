@@ -128,7 +128,7 @@ config.cmd = {
 
 config.root_dir = root_dir
 
-config.capabilities = require("tvl.util").capabilities()
+config.capabilities = require("util").capabilities()
 
 local jar_patterns = {
   "/dev/microsoft/java-debug/com.microsoft.java.debug.plugin/target/com.microsoft.java.debug.plugin-*.jar",

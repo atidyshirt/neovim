@@ -1,4 +1,4 @@
-local ignore_patterns = require("tvl.ignore_patterns")
+local ignore_patterns = require("ignore_patterns")
 
 return {
   {
