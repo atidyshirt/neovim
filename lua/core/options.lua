@@ -19,7 +19,6 @@ local options = {
   splitbelow = true,
   splitright = true,
   swapfile = false,
-  termguicolors = true,
   timeoutlen = 400,
   undofile = true,
   updatetime = 500,
@@ -70,6 +69,12 @@ vim.opt.shortmess:append("c")
 vim.opt.viewoptions:remove "curdir"
 
 vim.opt.list = true
+
+if vim.env.TERM:find('256color') then
+  options.termguicolors = true
+else
+  options.termguicolors = false
+end
 
 for k, v in pairs(options) do
   vim.opt[k] = v
