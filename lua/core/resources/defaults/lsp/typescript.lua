@@ -1,6 +1,7 @@
 return {
   {
-    "yioneko/nvim-vtsls",
+    "pmizio/typescript-tools.nvim",
+    dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
     opts = {
       settings = {
         tsserver_file_preferences = {
@@ -8,9 +9,6 @@ return {
         }
       }
     },
-    config = function(_, opts)
-      require("vtsls").config(opts)
-    end,
   },
 
   { "JoosepAlviste/nvim-ts-context-commentstring", lazy = true },
