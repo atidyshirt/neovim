@@ -45,4 +45,29 @@ return {
       { "<leader>fk", "<cmd> Telescope keymaps <CR>" },
     },
   },
+  {
+    'MagicDuck/grug-far.nvim',
+    config = true,
+    opts = {
+      windowCreationCommand = 'split',
+      keymaps = {
+        replace = { n = '<localleader>r' },
+        qflist = { n = '<localleader>q' },
+        syncLocations = { n = '<localleader>s' },
+        syncLine = { n = '<localleader>l' },
+        historyOpen = { n = '<localleader>t' },
+        historyAdd = { n = '<localleader>a' },
+        pickHistoryEntry = { n = '<enter>' },
+        refresh = { n = '<localleader>f' },
+        openLocation = { n = '<localleader>o' },
+        openNextLocation = { n = '<C-n>' },
+        openPrevLocation = { n = '<C-p>' },
+        abort = { n = '<localleader>b' },
+        help = { n = 'g?' },
+      },
+    },
+    keys = {
+      { "<leader>fg", "<cmd> GrugFar <CR>" },
+    },
+  },
 }
