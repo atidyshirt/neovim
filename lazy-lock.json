@@ -54,6 +54,7 @@
   "statuscol.nvim": { "branch": "main", "commit": "81d1cfb47e91780f72a8d9a3529f146731864313" },
   "telescope-live-grep-args.nvim": { "branch": "master", "commit": "8ad632f793fd437865f99af5684f78300dac93fb" },
   "telescope.nvim": { "branch": "master", "commit": "415af52339215926d705cccc08145f3782c4d132" },
+  "tiny-inline-diagnostic.nvim": { "branch": "main", "commit": "6b40143750d7db53ae0fb2ef8a0bec8be009291b" },
   "treesj": { "branch": "main", "commit": "ec234a9a13d61a7b95900abdb02fabaea1afd9f3" },
   "tsc.nvim": { "branch": "main", "commit": "59abb6f3f24a3ca80708f694af4e2b727a1a3211" },
   "vim-fugitive": { "branch": "master", "commit": "96c1009fcf8ce60161cc938d149dd5a66d570756" },
