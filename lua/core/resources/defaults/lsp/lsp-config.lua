@@ -115,4 +115,5 @@ return {
       require("mason-lspconfig").setup_handlers({ setup })
     end,
   },
+  { "mtdl9/vim-log-highlighting" }
 }
