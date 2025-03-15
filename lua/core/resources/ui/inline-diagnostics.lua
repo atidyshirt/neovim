@@ -1,3 +1,5 @@
+local util = require("util")
+
 return {
   {
     "rachartier/tiny-inline-diagnostic.nvim",
@@ -17,7 +19,7 @@ return {
           hint = "DiagnosticSignHint",
           arrow = "NonText",
           background = "CursorLine",
-          mixing_color = "#323232",
+          mixing_color = util.get_highlight_value("String").background,
         },
       })
     end
