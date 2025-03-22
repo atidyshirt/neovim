@@ -16,10 +16,6 @@ return {
     priority = 1000,
   },
   {
-    "sainnhe/gruvbox-material",
-    lazy = true,
-  },
-  {
     "f-person/auto-dark-mode.nvim",
     opts = {
       -- your configuration comes here

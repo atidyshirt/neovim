@@ -9,11 +9,6 @@ return {
       prev_repeat = "<c-p>",
     },
     init = function()
-      require("nap").operator("r", {
-        next = { command = require("illuminate").goto_next_reference, desc = "Next cursor word" },
-        prev = { command = require("illuminate").goto_prev_reference, desc = "Prev cursor word" },
-        mode = { "n", "x", "o" },
-      })
       require("nap").operator("h", {
         next = {
           command = function()

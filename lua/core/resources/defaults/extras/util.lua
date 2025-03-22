@@ -1,15 +1,8 @@
 return {
   { "unblevable/quick-scope" },
   { "tpope/vim-surround" },
-  { "skywind3000/asyncrun.vim" },
   { "tpope/vim-sleuth" },
-
-  {
-    'echasnovski/mini.ai',
-    version = '*',
-    config = true,
-  },
-
+  { "vitalk/vim-shebang" },
   {
     'numToStr/Comment.nvim',
     opts = {
@@ -21,27 +14,6 @@ return {
     "nvim-lua/plenary.nvim",
     lazy = true,
   },
-
-  {
-    "MunifTanjim/nui.nvim",
-    lazy = true,
-  },
-
-  {
-    "dstein64/vim-startuptime",
-    cmd = "StartupTime",
-  },
-
-  {
-    "nvim-tree/nvim-web-devicons",
-    enabled = vim.g.nerd_font_enabled,
-    lazy = true,
-    config = function ()
-      require("nvim-web-devicons").setup()
-    end
-  },
-
-  { "vitalk/vim-shebang" },
 
   {
     "Wansmer/treesj",
