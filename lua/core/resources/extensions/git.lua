@@ -1,4 +1,3 @@
-local Util = require("util")
 local Icons = require("core.icons")
 
 return {
@@ -20,9 +19,6 @@ return {
         delay = 300,
       },
       current_line_blame_formatter = "<author>, <author_time:%Y-%m-%d> - <summary>",
-      preview_config = {
-        border = Util.generate_borderchars("thick", "tl-t-tr-r-bl-b-br-l"),
-      },
     },
     keys = {
       { "<leader>hs", ":Gitsigns stage_hunk<CR>" },

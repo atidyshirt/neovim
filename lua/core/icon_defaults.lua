@@ -37,13 +37,6 @@ return {
     ellipsis = "…",
     separator = "",
   },
-  noice = {
-    cmdline = { icon = "  " },
-    search_down = { icon = "  󰄼" },
-    search_up = { icon = "  " },
-    lua = { icon = "  " },
-    async_job = { pattern = "^:%s*AsyncRunWithNotify ", icon = "  " },
-  },
   kinds = {
     Array = "",
     Boolean = "",
@@ -81,41 +74,6 @@ return {
     Value = "",
     Variable = "",
     Macro = "", -- Macro
-  },
-  borders = {
-    --- @class BorderIcons
-    thin = {
-      top = "▔",
-      right = "▕",
-      bottom = "▁",
-      left = "▏",
-      top_left = "🭽",
-      top_right = "🭾",
-      bottom_right = "🭿",
-      bottom_left = "🭼",
-    },
-    ---@type BorderIcons
-    empty = {
-      top = " ",
-      right = " ",
-      bottom = " ",
-      left = " ",
-      top_left = " ",
-      top_right = " ",
-      bottom_right = " ",
-      bottom_left = " ",
-    },
-    ---@type BorderIcons
-    thick = {
-      top = "▄",
-      right = "█",
-      bottom = "▀",
-      left = "█",
-      top_left = "▄",
-      top_right = "▄",
-      bottom_right = "▀",
-      bottom_left = "▀",
-    },
   },
   misc = {
     codeium = "󰘦 ",

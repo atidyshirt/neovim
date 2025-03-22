@@ -37,7 +37,6 @@ function TextIconOverrideHandler:override_noice ()
     search_down = { icon = "/" },
     search_up = { icon = "/" },
     lua = { icon = " > " },
-    async_job = { pattern = "^:%s*AsyncRunWithNotify ", icon = " > " },
   }
 end
 
