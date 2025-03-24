@@ -7,8 +7,8 @@ return {
       input = { enabled = true },
       notifier = {
         enabled = true,
-        style = 'minimal',
-        margin = { right = 1, bottom = 1 },
+        style = 'compact',
+        margin = { bottom = 1 },
         padding = true,
         top_down = false,
       },
