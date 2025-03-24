@@ -1,5 +1,9 @@
 return {
   {
+    'brenoprata10/nvim-highlight-colors',
+    config = true,
+  },
+  {
     "folke/snacks.nvim",
     priority = 1000,
     lazy = false,

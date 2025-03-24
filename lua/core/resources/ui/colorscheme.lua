@@ -1,15 +1,7 @@
 return {
-  -- {
-  --   "sainnhe/gruvbox-material",
-  --   lazy = true,
-  -- },
-  -- trying it out due to broken support on some things
   {
-    'f4z3r/gruvbox-material.nvim',
-    name = 'gruvbox-material',
-    lazy = false,
-    priority = 1000,
-    opts = {},
+    "sainnhe/gruvbox-material",
+    lazy = true,
   },
   {
     "catppuccin/nvim",
