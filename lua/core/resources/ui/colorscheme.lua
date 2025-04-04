@@ -1,7 +1,7 @@
 return {
   {
-    "sainnhe/gruvbox-material",
-    lazy = true,
+    "atidyshirt/gruvbox-baby",
+    priority = 1000,
   },
   {
     "catppuccin/nvim",
@@ -19,7 +19,7 @@ return {
     "f-person/auto-dark-mode.nvim",
     opts = {
       set_dark_mode = function()
-        vim.cmd('colorscheme gruvbox-material')
+        vim.cmd('colorscheme gruvbox-baby')
         vim.api.nvim_set_option_value("background", "dark", {})
       end,
       set_light_mode = function()

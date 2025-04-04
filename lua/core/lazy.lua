@@ -17,7 +17,7 @@ require("lazy").setup({
     lazy = false,
     version = "*",
   },
-  install = { colorscheme = { "gruvbox-material" } },
+  install = { colorscheme = { "gruvbox-baby" } },
   checker = { enabled = false, notify = false },
   performance = {
     rtp = {
@@ -32,4 +32,4 @@ require("lazy").setup({
   },
 })
 
-vim.cmd('colorscheme gruvbox-material')
+vim.cmd('colorscheme gruvbox-baby')
