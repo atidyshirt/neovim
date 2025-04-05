@@ -3,10 +3,10 @@ return {
   { "tpope/vim-surround" },
   { "tpope/vim-sleuth" },
   { "vitalk/vim-shebang" },
+  { "mtdl9/vim-log-highlighting" },
   {
     'numToStr/Comment.nvim',
-    opts = {
-    },
+    opts = {},
     lazy = false,
   },
 
