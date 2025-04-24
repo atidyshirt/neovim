@@ -133,7 +133,7 @@ M.capabilities = function(ext)
     "force",
     {},
     ext or {},
-    require("cmp_nvim_lsp").default_capabilities(),
+    require("blink.cmp").get_lsp_capabilities(ext),
     { textDocument = { foldingRange = { dynamicRegistration = false, lineFoldingOnly = true } } }
   )
 end

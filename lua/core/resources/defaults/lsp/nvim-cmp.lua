@@ -1,64 +1,75 @@
+local completion_ui_opts = {
+  columns = {
+    { "label", "label_description", gap = 1 },
+    { "kind_icon", "kind" }
+  },
+}
+
+local function get_completion_opts_if_ai_is_enabled()
+  if vim.g.ai_integration_enabled then
+    return {
+      keyword = { range = 'full' },
+      accept = { auto_brackets = { enabled = false }, },
+      list = { selection = { preselect = false, auto_insert = true } },
+      menu = {
+	auto_show = false,
+	draw = completion_ui_opts,
+      },
+    }
+  end
+  return {
+    menu = {
+      auto_show = true,
+      draw = completion_ui_opts,
+    }
+  }
+end
+
 return {
+  -- AI Integration
   {
-    "hrsh7th/nvim-cmp",
-    version = false,
-    event = "BufEnter",
-    dependencies = {
-      "hrsh7th/cmp-nvim-lsp",
-      "hrsh7th/cmp-buffer",
-      "hrsh7th/cmp-path",
-      "hrsh7th/cmp-cmdline",
-      "saadparwaiz1/cmp_luasnip",
+    'supermaven-inc/supermaven-nvim',
+    event = 'InsertEnter',
+    enabled = vim.g.ai_integration_enabled,
+    opts = {
+      keymaps = {
+	accept_suggestion = '<Tab>',
+      },
+      log_level = 'off',
     },
-    opts = function()
-      local cmp = require("cmp")
-      cmp.setup.cmdline("/", {
-        mapping = cmp.mapping.preset.cmdline(),
-        sources = { { name = "buffer" } },
-      })
-      cmp.setup.cmdline(":", {
-        mapping = cmp.mapping.preset.cmdline(),
-        sources = cmp.config.sources({ { name = "path" } }, { { name = "cmdline" } }),
-      })
-      return {
-        completion = {
-          completeopt = "menu,menuone,noinsert",
-        },
-        snippet = {
-          expand = function(args)
-            require("luasnip").lsp_expand(args.body)
-          end,
-        },mapping = cmp.mapping.preset.insert({
-          ["<C-j>"] = cmp.mapping(cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }), { "i", "c" }),
-          ["<C-k>"] = cmp.mapping(cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }), { "i", "c" }),
-          ["<C-b>"] = cmp.mapping.scroll_docs(-4),
-          ["<C-f>"] = cmp.mapping.scroll_docs(4),
-          ["<C-l>"] = cmp.mapping.confirm({ select = true }),
-          ["<C-e>"] = cmp.mapping.abort(),
-          ["<CR>"] = cmp.mapping.confirm({ select = true }),
-        }),
-        sources = cmp.config.sources({
-          { name = "nvim_lsp" },
-          { name = "luasnip" },
-          { name = "buffer" },
-          { name = "path" },
-        }),
-        formatting = {
-          fields = { "kind", "abbr", "menu" },
-          format = function(entry, item)
-            local icons = require("core.icons").kinds
-            item.kind = icons[item.kind]
-            item.menu = ({
-              nvim_lsp = "Lsp",
-              nvim_lua = "Lua",
-              luasnip = "Snippet",
-              buffer = "Buffer",
-              path = "Path",
-            })[entry.source.name]
-            return item
-          end,
-        },
-      }
-    end,
+  },
+  -- LSP Completion
+  {
+    'saghen/blink.cmp',
+    version = '*',
+    build = 'cargo build --release',
+    opts = {
+      keymap = {
+	preset = 'none',
+	['<C-h>'] = { 'show_documentation', 'hide_documentation' },
+	['<C-e>'] = { 'cancel' },
+	['<C-l>'] = { 'accept' },
+	['<Return>'] = { 'accept', 'fallback' },
+	['<C-j>'] = { 'select_next', 'show', 'fallback' },
+	['<C-k>'] = { 'select_prev', 'show', 'fallback' },
+	['<C-d>'] = { 'scroll_documentation_up', 'fallback' },
+	['<C-u>'] = { 'scroll_documentation_down', 'fallback' },
+      },
+      appearance = {
+	nerd_font_variant = 'normal',
+	use_nvim_cmp_as_default = true,
+      },
+      completion = get_completion_opts_if_ai_is_enabled(),
+      sources = { default = { 'lsp', 'buffer', 'path' } },
+      fuzzy = { prebuilt_binaries = { ignore_version_mismatch = true } },
+      signature = { enabled = true, window = { show_documentation = false } },
+      cmdline = {
+	keymap = {
+	  preset = 'inherit',
+	  ['<Return>'] = { 'fallback' },
+	},
+      },
+    },
+    opts_extend = { 'sources.default' },
   },
 }
