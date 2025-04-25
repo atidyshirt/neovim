@@ -1,4 +1,4 @@
-local ignore_patterns = require("ignore_patterns")
+local ignore_patterns = require("config.ignore_patterns")
 
 return {
   {

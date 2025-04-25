@@ -1,4 +1,4 @@
-require "core.options"
+require "config.options"
 require "core.lazy"
 
 local global_settings = {
@@ -13,8 +13,8 @@ end
 vim.api.nvim_create_autocmd("User", {
   pattern = "VeryLazy",
   callback = function()
-    require "core.autocmds"
-    require "core.keymaps"
+    require "config.autocmds"
+    require "config.keymaps"
   end,
 })
 
