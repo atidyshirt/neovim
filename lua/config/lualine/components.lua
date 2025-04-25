@@ -1,5 +1,5 @@
 local config = require("config.lualine.config").options
-local icons = require("core.icons")
+local icons = require("core.icons.icons")
 
 local M = {}
 

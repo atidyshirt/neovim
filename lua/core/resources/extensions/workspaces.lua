@@ -1,7 +1,6 @@
 return {
   {
     "atidyshirt/neoscopes",
-
     dependencies = {
       { "nvim-telescope/telescope.nvim" },
       {
