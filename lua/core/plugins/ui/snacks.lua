@@ -12,6 +12,7 @@ return {
       notifier = {
         enabled = true,
         style = 'compact',
+        timeout = 10000,
         margin = { bottom = 1 },
         padding = true,
         top_down = false,

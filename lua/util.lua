@@ -1,7 +1,7 @@
 local M = {}
 
 M.augroup = function(name)
-  return vim.api.nvim_create_augroup("tvl_" .. name, { clear = true })
+  return vim.api.nvim_create_augroup("ats_" .. name, { clear = true })
 end
 
 --- @param on_attach fun(client, buffer)
@@ -32,7 +32,6 @@ M.capabilities = function(ext)
     "force",
     {},
     ext or {},
-    require("blink.cmp").get_lsp_capabilities(ext),
     { textDocument = { foldingRange = { dynamicRegistration = false, lineFoldingOnly = true } } }
   )
 end

@@ -6,9 +6,8 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
   spec = {
-    { import = "core.plugins.defaults.core" },
+    { import = "core.plugins.defaults" },
     { import = "core.plugins.defaults.lsp" },
-    { import = "core.plugins.defaults.extras" },
     { import = "core.plugins.ui" },
     { import = "core.plugins.extensions" },
   },
