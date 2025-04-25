@@ -1,4 +1,4 @@
-local defaults = require('core.icon_defaults')
+local defaults = require('core.icons.icon_defaults')
 
 ---@class TextIconOverrideHandler
 local TextIconOverrideHandler = {}

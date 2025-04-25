@@ -1,4 +1,4 @@
-local Icons = require("core.icons")
+local Icons = require("core.icons.icons")
 
 return {
   { "tpope/vim-fugitive" },

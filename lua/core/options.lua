@@ -90,5 +90,4 @@ if vim.g.neovide then
   vim.g.neovide_scale_factor = 1
 end
 
-
 vim.g.asyncrun_silent = 0

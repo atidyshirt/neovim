@@ -37,20 +37,4 @@ return {
       },
     },
   },
-
-  -- Disabled -- trying typescript tools
-  -- {
-  --   enabled = false,
-  --   "yioneko/nvim-vtsls",
-  --   opts = {
-  --     settings = {
-  --       tsserver_file_preferences = {
-  --         importModuleSpecifierPreference = 'project-relative'
-  --       }
-  --     }
-  --   },
-  --   config = function(_, opts)
-  --     require("vtsls").config(opts)
-  --   end,
-  -- },
 }
