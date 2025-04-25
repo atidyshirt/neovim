@@ -1,18 +1,24 @@
+local icons = require('core.icons.icons')
+
 return {
   {
     "nvim-lualine/lualine.nvim",
     enabled = vim.g.nerd_font_enabled,
     event = "VeryLazy",
     opts = {
-      float = true,
-      separator = "square",
-      ---@type any
-      colorful = true,
+      icons_enabled = true,
+      theme = 'auto',
+      component_separators = { left = icons.bbq_symbols.modified, right = icons.bbq_symbols.modified},
+      section_separators = { left = ' ', right = ' ' },
+      sections = {
+        lualine_a = { { 'mode', separator = { left = '', right = '' } } },
+        lualine_b = { 'branch', 'diff', 'diagnostics' },
+        lualine_c = {'filename'},
+        lualine_x = {'filetype'},
+        lualine_y = {},
+        lualine_z = {},
+      },
     },
-    config = function(_, opts)
-      local lualine_config = require("config.lualine")
-      lualine_config.setup(opts)
-      lualine_config.load()
-    end,
+    config = true
   },
 }

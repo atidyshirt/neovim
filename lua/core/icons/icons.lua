@@ -41,6 +41,7 @@ function TextIconOverrideHandler:override_noice ()
 end
 
 function TextIconOverrideHandler:override_bbq ()
+  self.icons.bbq_symbols.modified = '<'
   self.icons.bbq_symbols.separator = '>'
 end
 
