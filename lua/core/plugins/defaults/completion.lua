@@ -41,8 +41,7 @@ return {
   -- LSP Completion
   {
     'saghen/blink.cmp',
-    version = '*',
-    build = 'cargo build --release',
+    version = '1.*',
     opts = {
       keymap = {
 	preset = 'none',
