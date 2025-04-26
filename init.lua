@@ -1,14 +1,11 @@
 require "config.options"
+local default_settings = require "config.globals"
+local project_settings = require "core.internal-plugins.project-settings"
+
+project_settings.setup({ default_settings })
+project_settings.apply_settings()
+
 require "core.lazy"
-
-local global_settings = {
-  nerd_font_enabled = true,
-  ai_integration_enabled = false,
-}
-
-for k, v in pairs(global_settings) do
-  vim.g[k] = v
-end
 
 vim.api.nvim_create_autocmd("User", {
   pattern = "VeryLazy",

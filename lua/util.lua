@@ -36,4 +36,13 @@ M.capabilities = function(ext)
   )
 end
 
+---@param variable string The environment variable name to check
+---@param default boolean The fallback value if variable doesn't exist
+---@return boolean # Parsed boolean value (true for "1"/"true", false otherwise)
+M.settings_env = function(variable, default)
+  local value = vim.env[var_name]
+  if value == nil then return default end
+  return value == "1" or value:lower() == "true"
+end
+
 return M

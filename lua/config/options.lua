@@ -60,11 +60,6 @@ local options = {
 
   sessionoptions = { "buffers", "curdir", "tabpages", "winsize" },
 }
-vim.g.loaded_netrw = 1
-vim.g.loaded_netrwPlugin = 1
-vim.g.mapleader = " "
-vim.g.maplocalleader = ","
-
 vim.opt.shortmess:append("c")
 vim.opt.viewoptions:remove "curdir"
 
@@ -85,9 +80,10 @@ vim.cmd([[set iskeyword+=-]])
 
 vim.cmd([[set foldopen-=hor]])
 
-if vim.g.neovide then
-  vim.opt.guifont = "Cascadia Code:h10"
-  vim.g.neovide_scale_factor = 1
-end
-
-vim.g.asyncrun_silent = 0
+return {
+  setup = function(global_settings)
+    for k, v in pairs(global_settings) do
+      vim.g[k] = v
+    end
+  end,
+}
