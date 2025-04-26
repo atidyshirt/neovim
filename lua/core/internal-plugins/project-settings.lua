@@ -7,10 +7,7 @@
 ---@field setup fun(opts: ProjectSettingsConfig?)
 ---@field apply_settings fun()
 local M = {}
-local default_settings = {
-  nerd_font_enabled = true,
-  ai_integration_enabled = false,
-}
+local default_settings = {}
 
 ---@type ProjectSettingsConfig
 local config = {
@@ -55,7 +52,6 @@ function M.apply_settings()
     vim.g[k] = v
   end
 
-  -- Optional: notify user
   vim.schedule(function()
     local proj_file = vim.fn.findfile(config.settings_file, '.;')
     if proj_file ~= '' then
