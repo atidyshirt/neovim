@@ -61,7 +61,10 @@ return {
       },
       completion = get_completion_opts_if_ai_is_enabled(),
       sources = { default = { 'lsp', 'buffer', 'path' } },
-      fuzzy = { prebuilt_binaries = { ignore_version_mismatch = true } },
+      fuzzy = {
+	implementation = 'prefer_rust_with_warning',
+	prebuilt_binaries = { ignore_version_mismatch = true },
+      },
       signature = { enabled = true, window = { show_documentation = false } },
       cmdline = {
 	keymap = {
