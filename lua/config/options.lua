@@ -77,13 +77,4 @@ end
 
 vim.cmd("set whichwrap+=<,>,[,]")
 vim.cmd([[set iskeyword+=-]])
-
 vim.cmd([[set foldopen-=hor]])
-
-return {
-  setup = function(global_settings)
-    for k, v in pairs(global_settings) do
-      vim.g[k] = v
-    end
-  end,
-}
