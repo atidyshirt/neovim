@@ -5,6 +5,7 @@
     },
     "workspace": {
         "library": [
+            "./lua",
             "runtime/lua",
             "${3rd}/busted/library"
         ],
@@ -24,7 +25,8 @@
         },
         "unusedLocalExclude": [ "_*" ],
         "disable": [
-            "luadoc-miss-see-name"
+            "luadoc-miss-see-name",
+            "no-unknown"
         ]
     }
 }
