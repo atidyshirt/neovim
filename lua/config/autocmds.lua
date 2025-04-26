@@ -1,4 +1,4 @@
-local Util = require("util")
+local Util = require("core.util")
 
 -- Highlight on yank
 vim.api.nvim_create_autocmd({ "TextYankPost" }, {

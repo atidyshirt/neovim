@@ -8,7 +8,7 @@
 
 local M = {}
 
-local util = require("util")
+local util = require("core.util")
 local mason = require("mason-lspconfig")
 local mason_server_mappings = require("mason-lspconfig.mappings.server")
 local blink = require("blink.cmp")

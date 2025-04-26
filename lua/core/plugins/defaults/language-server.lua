@@ -46,7 +46,7 @@ return {
       attach_handlers = {},
     },
     config = function(_, opts)
-      local Util = require("util")
+      local Util = require("core.util")
       local lsp_setup = require("config.lsp.lsp-setup-service")
 
       Util.on_attach(function(client, buffer)

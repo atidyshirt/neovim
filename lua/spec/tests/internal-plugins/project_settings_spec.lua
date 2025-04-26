@@ -9,7 +9,7 @@ describe("project-settings", function()
   before_each(function()
     vim.g = {}
     package.loaded["project-settings"] = nil
-    project_settings = require("lua.core.internal-plugins.project-settings")
+    project_settings = require("core.internal-plugins.project-settings")
   end)
 
   it("sets up with default config", function()

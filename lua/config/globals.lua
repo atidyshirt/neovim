@@ -1,4 +1,4 @@
-local util = require "util"
+local util = require "core.util"
 
 local globals = {
   nerd_font_enabled = util.settings_env("NERD_FONT_ENABLED", true),
