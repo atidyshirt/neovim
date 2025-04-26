@@ -6,7 +6,6 @@ local assert = busted.assert
 
 describe("Icons", function()
   before_each(function()
-    -- Reset nerd font setting
     vim.g.nerd_font_enabled = nil
   end)
 
@@ -16,7 +15,6 @@ describe("Icons", function()
     end)
 
     it("should use default icons", function()
-      -- Verify that icons match defaults when nerd fonts are enabled
       assert.equals(defaults.diagnostics.error, icons.diagnostics.error)
       assert.equals(defaults.gitsigns.add, icons.gitsigns.add)
       assert.equals(defaults.kinds.Class, icons.kinds.Class)

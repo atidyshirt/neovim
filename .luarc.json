@@ -9,9 +9,7 @@
             "runtime/lua",
             "${3rd}/busted/library"
         ],
-        "ignoreDir": [
-            "test"
-        ],
+        "ignoreDir": [ "**/spec/**/*.lua" ],
         "checkThirdParty": "Disable"
     },
     "diagnostics": {
