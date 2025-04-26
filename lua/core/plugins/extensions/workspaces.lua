@@ -47,7 +47,19 @@ return {
           search_dirs = get_search_dirs(),
         }
       end
+      _G.neoscopes_live_grep_current_word = function()
+        require("telescope").extensions.live_grep_args.live_grep_args {
+          search_dirs = get_search_dirs(),
+          default_text = vim.fn.expand("<cword>")
+        }
+      end
 
+      vim.keymap.set(
+        "n",
+        "<leader>fs",
+        "<Cmd>lua neoscopes_live_grep_current_word()<CR>",
+        { desc = "Live grep - current word (scoped)" }
+      )
       vim.keymap.set(
         "n",
         "<leader>ff",
