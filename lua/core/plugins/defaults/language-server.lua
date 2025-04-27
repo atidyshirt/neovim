@@ -1,3 +1,25 @@
+local lsp_dependencies = {
+  "williamboman/mason.nvim",
+  "williamboman/mason-lspconfig.nvim",
+  {
+    "folke/lazydev.nvim",
+    ft = "lua",
+    opts = { library = { { path = "${3rd}/luv/library", words = { "vim%.uv" } } } },
+  },
+  {
+    "stevearc/conform.nvim",
+    opts = {
+      formatters_by_ft = {
+        lua = { "stylua" },
+        python = { "isort", "black" },
+        rust = { "rustfmt", lsp_format = "fallback" },
+        javascript = { "prettierd", "prettier", stop_after_first = true },
+      },
+    },
+    config = true,
+  },
+}
+
 return {
   {
     "williamboman/mason.nvim",
@@ -10,32 +32,19 @@ return {
     "neovim/nvim-lspconfig",
     branch = "master",
     event = { "BufReadPre", "BufNewFile" },
-    dependencies = {
-      "williamboman/mason.nvim",
-      "williamboman/mason-lspconfig.nvim",
-      {
-        "folke/lazydev.nvim",
-        ft = "lua",
-        opts = { library = { { path = "${3rd}/luv/library", words = { "vim%.uv" } } } },
-      },
-    },
+    dependencies = lsp_dependencies,
     keys = {
-      { "<leader>la", "<cmd>lua vim.lsp.buf.code_action()<cr>", mode = {"n", "v"}, desc = "Code Action" },
+      { "<leader>la", "<cmd>lua vim.lsp.buf.code_action()<cr>", mode = { "n", "v" }, desc = "Code Action" },
       { "<leader>ll", "<cmd>lua vim.lsp.codelens.run()<cr>", desc = "CodeLens Action" },
       { "<leader>lq", "<cmd>lua vim.lsp.diagnostic.set_loclist()<cr>", desc = "Quickfix" },
       { "<leader>lr", "<cmd>lua vim.lsp.buf.rename()<cr>", desc = "Rename" },
       {
         "<leader>lf",
         function()
-          vim.lsp.buf.format({
-            filter = function(client)
-              local exclude_servers = { "lua_ls", "pyright", "pylsp" }
-              return not vim.tbl_contains(exclude_servers, client.name)
-            end,
-          })
+          require("conform").format({ async = true }, function() end)
         end,
         desc = "Format",
-      }
+      },
     },
     opts = {
       servers = {
@@ -58,6 +67,6 @@ return {
 
       lsp_setup.attach_diagnostics()
       lsp_setup.attach_lsp_handlers(opts)
-    end
+    end,
   },
 }
