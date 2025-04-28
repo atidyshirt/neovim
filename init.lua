@@ -1,3 +1,4 @@
+require "config.environment"
 require "config.options"
 local default_settings = require "config.globals"
 local project_settings = require "core.internal-plugins.project-settings"

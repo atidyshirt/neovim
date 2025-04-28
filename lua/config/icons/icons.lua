@@ -1,3 +1,4 @@
+local env = require("config.environment")
 local defaults = require('config.icons.icon_defaults')
 
 ---@class TextIconOverrideHandler
@@ -61,7 +62,7 @@ function TextIconOverrideHandler:override_icons_with_text_if_needed()
     self.override_bbq,
     self.override_noice,
   }
-  if vim.g.nerd_font_enabled ~= true then
+  if env.nerd_font_enabled ~= true then
     for _, override_function in pairs(overrides) do
       override_function(self)
     end

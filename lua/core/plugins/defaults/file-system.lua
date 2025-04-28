@@ -1,10 +1,12 @@
+local env = require("config.environment")
+
 return {
   {
     "stevearc/oil.nvim",
     dependencies = {
       {
         "nvim-tree/nvim-web-devicons",
-        enabled = vim.g.nerd_font_enabled
+        enabled = env.nerd_font_enabled
       },
     },
     opts = {
