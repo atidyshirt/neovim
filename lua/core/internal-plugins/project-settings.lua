@@ -5,7 +5,7 @@
 
 ---@class ProjectSettingsModule
 ---@field setup fun(opts: ProjectSettingsConfig?)
----@field apply_settings fun()
+---@field load_file_settings_to_env fun()
 local M = {}
 local default_settings = {}
 
@@ -46,10 +46,10 @@ local function load_settings()
   return vim.tbl_deep_extend('force', default_settings, project_settings)
 end
 
-function M.apply_settings()
+function M.load_file_settings_to_env()
   local settings = load_settings()
   for k, v in pairs(settings) do
-    vim.g[k] = v
+    vim.env[k] = v
   end
 
   vim.schedule(function()
