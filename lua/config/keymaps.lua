@@ -1,7 +1,7 @@
 local opts = { noremap = true, silent = true }
 local keymap = vim.api.nvim_set_keymap
 
-function toggle_quickfix()
+_G.toggle_quickfix = function ()
   if not vim.tbl_isempty(vim.fn.getwininfo()) and vim.bo.buftype == "quickfix" then
     vim.cmd("cclose")
   else

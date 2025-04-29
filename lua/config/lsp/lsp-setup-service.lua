@@ -55,7 +55,10 @@ function M.attach_lsp_handlers(opts)
     end
   end
 
-  mason.setup({ ensure_installed })
+  mason.setup({
+    ensure_installed = ensure_installed,
+    automatic_installation = false,
+  })
   mason.setup_handlers({ setup })
 end
 

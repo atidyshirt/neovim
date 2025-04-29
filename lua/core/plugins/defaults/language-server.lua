@@ -4,7 +4,15 @@ local lsp_dependencies = {
   {
     "folke/lazydev.nvim",
     ft = "lua",
-    opts = { library = { { path = "${3rd}/luv/library", words = { "vim%.uv" } } } },
+    opts = {
+      library = {
+        "LazyVim",
+        { path = "LazyVim", words = { "LazyVim" } },
+        { path = "${3rd}/luv/library", words = { "vim%.uv" } },
+        { path = "${3rd}/busted/library" },
+        { path = "wezterm-types", mods = { "wezterm" } },
+      },
+    },
   },
   {
     "stevearc/conform.nvim",
