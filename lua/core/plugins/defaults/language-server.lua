@@ -69,8 +69,6 @@ return {
       Util.on_attach(function(client, buffer)
         require("config.lsp.navic").attach(client, buffer)
         require("config.lsp.keymaps").attach(client, buffer)
-        require("config.lsp.inlayhints").attach(client, buffer)
-        require("config.lsp.gitsigns").attach(client, buffer)
       end)
 
       lsp_setup.attach_diagnostics()

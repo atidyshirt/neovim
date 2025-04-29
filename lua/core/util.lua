@@ -40,7 +40,7 @@ end
 ---@param default boolean The fallback value if variable doesn't exist
 ---@return boolean # Parsed boolean value (true for "1"/"true", false otherwise)
 M.settings_env = function(variable, default)
-  local value = vim.env[var_name]
+  local value = vim.env[variable]
   if value == nil then return default end
   return value == "1" or value:lower() == "true"
 end
