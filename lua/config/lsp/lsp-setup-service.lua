@@ -1,7 +1,7 @@
 ---@module "config.lsp.lsp-setup-service"
 ---@alias ServerName string
 ---@alias ServerOpts table
----@alias AttachHandlers table<ServerName, fun(client: lsp.Client, buffer: integer)>
+---@alias AttachHandlers table<ServerName, fun(client: vim.lsp.Client, buffer: integer)>
 ---@class LspSetupOpts
 ---@field servers table<ServerName, ServerOpts>
 ---@field attach_handlers AttachHandlers
