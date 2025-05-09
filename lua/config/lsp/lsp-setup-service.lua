@@ -10,7 +10,7 @@ local M = {}
 
 local util = require("core.util")
 local mason = require("mason-lspconfig")
-local mason_server_mappings = require("mason-lspconfig.mappings.server")
+local mason_server_mappings = require("mason-lspconfig.mappings")
 local blink = require("blink.cmp")
 
 ---@return lsp.ClientCapabilities
@@ -25,7 +25,7 @@ function M.attach_lsp_handlers(opts)
   if not opts then return end
 
   local capabilities = get_capabilities()
-  local available_servers = vim.tbl_keys(mason_server_mappings.lspconfig_to_package)
+  local available_servers = vim.tbl_keys(mason_server_mappings.get_filetype_map())
   local ensure_installed = {}
 
   ---@param server ServerName
@@ -58,8 +58,8 @@ function M.attach_lsp_handlers(opts)
   mason.setup({
     ensure_installed = ensure_installed,
     automatic_installation = false,
+    automatic_enable = false,
   })
-  mason.setup_handlers({ setup })
 end
 
 function M.attach_diagnostics()

@@ -1,5 +1,16 @@
 local M = {}
 
+M.filetypes = {
+  "lua",
+  "c",
+  "cpp",
+  "python",
+  "zig",
+  "bash",
+  "javascript",
+  "typescript",
+}
+
 M.augroup = function(name)
   return vim.api.nvim_create_augroup("ats_" .. name, { clear = true })
 end

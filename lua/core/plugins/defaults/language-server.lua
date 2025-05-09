@@ -1,3 +1,6 @@
+local Util = require("core.util")
+
+---@diagnostic disable: missing-fields, missing-parameter
 local lsp_dependencies = {
   "williamboman/mason.nvim",
   "williamboman/mason-lspconfig.nvim",
@@ -25,6 +28,22 @@ local lsp_dependencies = {
       },
     },
     config = true,
+  },
+  {
+    'yarospace/dev-tools.nvim',
+    dependencies = {
+      "nvim-treesitter/nvim-treesitter",
+      "folke/snacks.nvim",
+    },
+    opts = {
+      actions = {},
+      filetypes = { include = Util.filetypes },
+      builtin_actions = { include = { "Refactoring", "Editing", "Specs" }, },
+
+      override_ui = true,
+      debug = false,
+      cache = true,
+    },
   },
 }
 
@@ -63,7 +82,6 @@ return {
       attach_handlers = {},
     },
     config = function(_, opts)
-      local Util = require("core.util")
       local lsp_setup = require("config.lsp.lsp-setup-service")
 
       Util.on_attach(function(client, buffer)
