@@ -11,5 +11,6 @@ end
 
 return {
   nerd_font_enabled = str_to_bool(util.settings_env("NERD_FONT_ENABLED", 'true')),
-  ai_integration_enabled = str_to_bool(util.settings_env("AI_INTEGRATION_ENABLED", 'true')),
+  supermaven_enabled = str_to_bool(util.settings_env("SUPERMAVEN_ENABLED", 'true')),
+  copilot_enabled = str_to_bool(util.settings_env("COPILOT_ENABLED", 'false')),
 }
