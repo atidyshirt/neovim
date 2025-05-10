@@ -1,5 +1,6 @@
 _G.vim = _G.vim or {}
 vim.g = {}
+vim.env = {}
 
 vim.notify = function() end
 
@@ -34,3 +35,5 @@ vim.tbl_deep_extend = function(mode, ...)
 end
 
 vim.schedule = function(fn) fn() end
+
+vim.notify = function(msg, level) end

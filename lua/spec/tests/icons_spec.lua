@@ -1,6 +1,6 @@
 require("spec.utils.global-mocks")
 local env = require("config.environment")
-local icons = require("config.icons.icons")
+local handler = require("config.icons.icons")
 local defaults = require("config.icons.icon_defaults")
 local busted = require('busted')
 local assert = busted.assert
@@ -16,6 +16,7 @@ describe("Icons", function()
     end)
 
     it("should use default icons", function()
+      local icons = handler.getIcons()
       assert.equals(defaults.diagnostics.error, icons.diagnostics.error)
       assert.equals(defaults.gitsigns.add, icons.gitsigns.add)
       assert.equals(defaults.kinds.Class, icons.kinds.Class)
@@ -29,6 +30,7 @@ describe("Icons", function()
     end)
 
     it("should override diagnostics icons with text", function()
+      local icons = handler.getIcons()
       assert.equals("E", icons.diagnostics.error)
       assert.equals("W", icons.diagnostics.warn)
       assert.equals("H", icons.diagnostics.hint)
@@ -36,6 +38,7 @@ describe("Icons", function()
     end)
 
     it("should override gitsigns icons with text", function()
+      local icons = handler.getIcons()
       assert.equals("+", icons.gitsigns.add)
       assert.equals("+", icons.gitsigns.change)
       assert.equals("-", icons.gitsigns.delete)
@@ -43,6 +46,7 @@ describe("Icons", function()
     end)
 
     it("should override kinds with empty strings", function()
+      local icons = handler.getIcons()
       assert.equals("", icons.kinds.Class)
       assert.equals("", icons.kinds.Constant)
       assert.equals("", icons.kinds.Constructor)
@@ -51,11 +55,13 @@ describe("Icons", function()
     end)
 
     it("should override bbq symbols", function()
+      local icons = handler.getIcons()
       assert.equals("<", icons.bbq_symbols.modified)
       assert.equals(">", icons.bbq_symbols.separator)
     end)
 
     it("should override noice icons", function()
+      local icons = handler.getIcons()
       assert.equals(" > ", icons.noice.cmdline.icon)
       assert.equals("/", icons.noice.search_down.icon)
       assert.equals("/", icons.noice.search_up.icon)
@@ -65,18 +71,18 @@ describe("Icons", function()
 
   describe("override behavior", function()
     it("should handle toggling nerd fonts", function()
-      -- Start with nerd fonts disabled
       env.nerd_font_enabled = false
+      local icons = handler.getIcons()
       assert.equals("E", icons.diagnostics.error)
       assert.equals("", icons.kinds.Class)
 
-      -- Enable nerd fonts
       env.nerd_font_enabled = true
+      icons = handler.getIcons()
       assert.equals(defaults.diagnostics.error, icons.diagnostics.error)
       assert.equals(defaults.kinds.Class, icons.kinds.Class)
 
-      -- Disable nerd fonts again
       env.nerd_font_enabled = false
+      icons = handler.getIcons()
       assert.equals("E", icons.diagnostics.error)
       assert.equals("", icons.kinds.Class)
     end)

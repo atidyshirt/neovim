@@ -69,6 +69,10 @@ function TextIconOverrideHandler:override_icons_with_text_if_needed()
   end
 end
 
-local text_icon_override_handler = TextIconOverrideHandler:new(defaults)
-text_icon_override_handler:override_icons_with_text_if_needed()
-return text_icon_override_handler.icons
+return {
+  getIcons = function ()
+    local text_icon_override_handler = TextIconOverrideHandler:new(defaults)
+    text_icon_override_handler:override_icons_with_text_if_needed()
+    return text_icon_override_handler.icons
+  end
+}

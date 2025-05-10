@@ -1,4 +1,4 @@
-local Icons = require('config.icons.icons')
+local Icons = require('config.icons.icons').getIcons()
 vim.g.diagnostics_enabled = true
 
 local diagnostics = {

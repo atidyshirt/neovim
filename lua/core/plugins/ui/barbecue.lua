@@ -1,4 +1,4 @@
-local Icon = require("config.icons.icons")
+local Icon = require("config.icons.icons").getIcons()
 local env = require("config.environment")
 
 return {

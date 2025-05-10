@@ -3,7 +3,7 @@ local default_settings = require "config.globals"
 local project_settings = require "core.internal-plugins.project-settings"
 
 project_settings.setup({ default_settings })
-project_settings.load_file_settings_to_env()
+project_settings.apply_settings()
 
 require "config.environment"
 require "core.lazy"

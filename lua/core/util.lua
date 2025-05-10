@@ -1,3 +1,5 @@
+local os = require('os');
+
 local M = {}
 
 M.filetypes = {
@@ -47,12 +49,22 @@ M.capabilities = function(ext)
   )
 end
 
+--- Attempts to get a config option from project settings, then checks the shell environment
+--- (uppercase by convention), and finally falls back to a default value.
 ---@param variable string The environment variable name to check
----@param default string
+---@param default string The fallback value
 ---@return string
 M.settings_env = function(variable, default)
-  local value = vim.env[variable]
-  if value == nil then return default end
+  local lower_variable = string.lower(variable)
+  local lower_value = vim.env[lower_variable]
+  if lower_value ~= nil then
+    return lower_value
+  end
+
+  local value = os.getenv(variable)
+  if value == nil then
+    return default
+  end
   return value
 end
 
