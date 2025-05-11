@@ -49,6 +49,15 @@ M.capabilities = function(ext)
   )
 end
 
+---@param str string
+---@return boolean
+M.str_to_bool = function(str)
+    if str == nil then
+        return false
+    end
+    return string.lower(str) == 'true' or string.lower(str) == 'v:true'
+end
+
 --- Attempts to get a config option from project settings, then checks the shell environment
 --- (uppercase by convention), and finally falls back to a default value.
 ---@param variable string The environment variable name to check
