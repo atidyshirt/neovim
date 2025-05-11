@@ -1,10 +1,9 @@
 local icons = require('config.icons.icons').getIcons()
-local env = require("config.environment")
 
 return {
   {
     "nvim-lualine/lualine.nvim",
-    enabled = env.nerd_font_enabled,
+    enabled = vim.env.nerd_font_enabled,
     event = "VeryLazy",
     opts = {
       icons_enabled = true,

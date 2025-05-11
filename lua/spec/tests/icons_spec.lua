@@ -1,5 +1,4 @@
 require("spec.utils.global-mocks")
-local env = require("config.environment")
 local handler = require("config.icons.icons")
 local defaults = require("config.icons.icon_defaults")
 local busted = require('busted')
@@ -7,12 +6,12 @@ local assert = busted.assert
 
 describe("Icons", function()
   before_each(function()
-    env.nerd_font_enabled = nil
+    vim.env.nerd_font_enabled = nil
   end)
 
   describe("with nerd fonts enabled", function()
     before_each(function()
-      env.nerd_font_enabled = true
+      vim.env.nerd_font_enabled = true
     end)
 
     it("should use default icons", function()
@@ -26,7 +25,7 @@ describe("Icons", function()
 
   describe("with nerd fonts disabled", function()
     before_each(function()
-      env.nerd_font_enabled = false
+      vim.env.nerd_font_enabled = false
     end)
 
     it("should override diagnostics icons with text", function()
@@ -71,17 +70,17 @@ describe("Icons", function()
 
   describe("override behavior", function()
     it("should handle toggling nerd fonts", function()
-      env.nerd_font_enabled = false
+      vim.env.nerd_font_enabled = false
       local icons = handler.getIcons()
       assert.equals("E", icons.diagnostics.error)
       assert.equals("", icons.kinds.Class)
 
-      env.nerd_font_enabled = true
+      vim.env.nerd_font_enabled = true
       icons = handler.getIcons()
       assert.equals(defaults.diagnostics.error, icons.diagnostics.error)
       assert.equals(defaults.kinds.Class, icons.kinds.Class)
 
-      env.nerd_font_enabled = false
+      vim.env.nerd_font_enabled = false
       icons = handler.getIcons()
       assert.equals("E", icons.diagnostics.error)
       assert.equals("", icons.kinds.Class)

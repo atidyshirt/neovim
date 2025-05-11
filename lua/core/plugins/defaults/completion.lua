@@ -1,5 +1,3 @@
-local env = require("config.environment")
-
 local completion_ui_opts = {
   columns = {
     { "label", "label_description", gap = 1 },
@@ -8,7 +6,7 @@ local completion_ui_opts = {
 }
 
 local function get_completion_opts_if_ai_is_enabled()
-  if env.supermaven_enabled or env.copilot_enabled then
+  if vim.env.supermaven_enabled or vim.env.copilot_enabled then
     return {
       keyword = { range = 'full' },
       accept = { auto_brackets = { enabled = false }, },
@@ -28,7 +26,7 @@ local function get_completion_opts_if_ai_is_enabled()
 end
 
 local function get_copilot_source_opts_if_ai_is_enabled()
-  if env.copilot_enabled then
+  if vim.env.copilot_enabled then
     return {
 	default = {
 	  'copilot',
@@ -56,12 +54,12 @@ return {
   -- AI Integration
   {
     'github/copilot.vim',
-    enabled = env.copilot_enabled,
+    enabled = vim.env.copilot_enabled,
   },
   {
     'supermaven-inc/supermaven-nvim',
     event = 'InsertEnter',
-    enabled = env.supermaven_enabled,
+    enabled = vim.env.supermaven_enabled,
     opts = {
       keymaps = {
 	accept_suggestion = '<Tab>',
@@ -74,7 +72,7 @@ return {
     'saghen/blink.cmp',
     dependencies = {
       "fang2hou/blink-copilot",
-      enabled = env.copilot_enabled,
+      enabled = vim.env.copilot_enabled,
       opts = {
 	max_completions = 1,
 	max_attempts = 2,

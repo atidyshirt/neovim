@@ -1,6 +1,4 @@
 local Icon = require("config.icons.icons").getIcons()
-local env = require("config.environment")
-
 return {
   {
     "utilyre/barbecue.nvim",
@@ -9,7 +7,7 @@ return {
       "SmiteshP/nvim-navic",
       {
         "nvim-tree/nvim-web-devicons",
-        enabled = env.nerd_font_enabled
+        enabled = vim.env.nerd_font_enabled
       },
     },
     opts = {
