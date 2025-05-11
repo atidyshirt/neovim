@@ -8,7 +8,7 @@ local completion_ui_opts = {
 }
 
 local function get_completion_opts_if_ai_is_enabled()
-  if env.supermaven_enabled then
+  if env.supermaven_enabled or env.copilot_enabled then
     return {
       keyword = { range = 'full' },
       accept = { auto_brackets = { enabled = false }, },
