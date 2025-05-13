@@ -17,6 +17,8 @@ jobs:
       - name: Setup Neovim
         uses: MunifTanjim/setup-neovim-action@v1
 
+        # Really we should inherit from a container with all the deps we need
+        # but I am lazy, so this is going to do for now as a quick solution.
       - name: Install Lua and luarocks
         run: |
           sudo apt-get update
@@ -26,6 +28,9 @@ jobs:
         run: |
           luarocks --local install busted
           luarocks --local install luacheck
+
+      - name: Add LuaRocks bin to PATH
+        run: echo "$HOME/.luarocks/bin" >> $GITHUB_PATH
 
       - name: Run tests with busted
         working-directory: ./lua
