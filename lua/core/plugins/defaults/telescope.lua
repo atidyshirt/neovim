@@ -13,6 +13,7 @@ return {
     version = false,
     opts = {
       defaults = {
+        border = false,
         prompt_prefix = "   ",
         selection_caret = "  ",
         entry_prefix = "   ",

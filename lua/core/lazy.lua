@@ -16,6 +16,9 @@ require("lazy").setup({
     lazy = false,
     version = "*",
   },
+  ui = {
+    size = { width = 1, height = 1 },
+  },
   install = { colorscheme = { "gruvbox-baby" } },
   checker = { enabled = false, notify = false },
   performance = {

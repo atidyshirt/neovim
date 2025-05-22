@@ -44,7 +44,7 @@ local options = {
   syntax = "off",
   spelllang = { "en" },
   colorcolumn = "120",
-
+  winborder = "double",
   foldlevelstart = 99,
   foldlevel = 99,
   foldenable = true,

@@ -13,6 +13,10 @@ local function get_completion_opts_if_ai_is_enabled()
       keyword = { range = 'full' },
       accept = { auto_brackets = { enabled = false }, },
       list = { selection = { preselect = false, auto_insert = true } },
+      documentation = {
+	auto_show = true,
+	auto_show_delay_ms = 500
+      },
       menu = {
 	auto_show = false,
 	draw = completion_ui_opts,
@@ -20,6 +24,10 @@ local function get_completion_opts_if_ai_is_enabled()
     }
   end
   return {
+    documentation = {
+      auto_show = true,
+      auto_show_delay_ms = 500
+    },
     menu = {
       auto_show = true,
       draw = completion_ui_opts,
