@@ -8,7 +8,7 @@ local completion_ui_opts = {
 }
 
 local function get_completion_opts_if_ai_is_enabled()
-  if util.str_to_bool(vim.env.supermaven_enabled) or util.str_to_bool(vim.env.copilot_enabled) then
+  if util.str_to_bool(vim.env.supermaven_enabled) then
     return {
       keyword = { range = 'full' },
       accept = { auto_brackets = { enabled = false }, },
@@ -55,10 +55,6 @@ end
 return {
   -- AI Integration
   {
-    'github/copilot.vim',
-    enabled = util.str_to_bool(vim.env.copilot_enabled),
-  },
-  {
     'supermaven-inc/supermaven-nvim',
     event = 'InsertEnter',
     enabled = util.str_to_bool(vim.env.supermaven_enabled),
@@ -67,6 +63,20 @@ return {
 	accept_suggestion = '<Tab>',
       },
       log_level = 'off',
+    },
+  },
+  {
+    "zbirenbaum/copilot.lua",
+    enabled = util.str_to_bool(vim.env.copilot_enabled),
+    cmd = "Copilot",
+    event = "InsertEnter",
+    opts = {
+      suggestion = { enabled = false },
+      panel = { enabled = false },
+      filetypes = {
+	markdown = true,
+	help = true,
+      },
     },
   },
   -- LSP Completion
