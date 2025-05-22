@@ -28,7 +28,7 @@ return {
       },
       settings = {
         tsserver_file_preferences = {
-          importModuleSpecifierPreference = "non-relative",
+          importModuleSpecifierPreference = "relative",
           providePrefixAndSuffixTextForRename = false,
         },
         tsserver_plugins = { "typescript-plugin-css-modules" },
