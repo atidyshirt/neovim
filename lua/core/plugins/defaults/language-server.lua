@@ -29,22 +29,6 @@ local lsp_dependencies = {
     },
     config = true,
   },
-  {
-    'yarospace/dev-tools.nvim',
-    dependencies = {
-      "nvim-treesitter/nvim-treesitter",
-      "folke/snacks.nvim",
-    },
-    opts = {
-      actions = {},
-      filetypes = { include = Util.filetypes },
-      builtin_actions = { include = { "Refactoring", "Editing", "Specs" }, },
-
-      override_ui = true,
-      debug = false,
-      cache = true,
-    },
-  },
 }
 
 return {
