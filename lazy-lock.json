@@ -1,5 +1,6 @@
 {
   "Comment.nvim": { "branch": "master", "commit": "e51f2b142d88bb666dcaa77d93a07f4b419aca70" },
+  "CopilotChat.nvim": { "branch": "main", "commit": "16d897fd43d07e3b54478ccdb2f8a16e4df4f45a" },
   "animation.nvim": { "branch": "main", "commit": "fb77091ab72ec9971aee0562e7081182527aaa6a" },
   "auto-dark-mode.nvim": { "branch": "master", "commit": "c31de126963ffe9403901b4b0990dde0e6999cc6" },
   "barbecue.nvim": { "branch": "main", "commit": "cd7e7da622d68136e13721865b4d919efd6325ed" },
@@ -37,6 +38,7 @@
   "oil.nvim": { "branch": "master", "commit": "975a77cce3c8cb742bc1b3629f4328f5ca977dad" },
   "plenary.nvim": { "branch": "master", "commit": "50012918b2fc8357b87cff2a7f7f0446e47da174" },
   "quick-scope": { "branch": "master", "commit": "51ba865a7bf984fd2361fe219449df452337b10d" },
+  "render-markdown.nvim": { "branch": "main", "commit": "935c2c70c296d87ed1bcce9ce667c239c9c982b5" },
   "snacks.nvim": { "branch": "main", "commit": "5eac729fa290248acfe10916d92a5ed5e5c0f9ed" },
   "supermaven-nvim": { "branch": "main", "commit": "07d20fce48a5629686aefb0a7cd4b25e33947d50" },
   "telescope-live-grep-args.nvim": { "branch": "master", "commit": "8ad632f793fd437865f99af5684f78300dac93fb" },
@@ -48,5 +50,6 @@
   "vim-shebang": { "branch": "master", "commit": "a48f08e20e8d7b06cdd526c95c3874ddd529eef8" },
   "vim-sleuth": { "branch": "master", "commit": "1d25e8e5dc4062e38cab1a461934ee5e9d59e5a8" },
   "vim-surround": { "branch": "master", "commit": "aeb933272e72617f7c4d35e1f003be16836b948d" },
+  "which-key.nvim": { "branch": "main", "commit": "fcbf4eea17cb299c02557d576f0d568878e354a4" },
   "windows.nvim": { "branch": "main", "commit": "c7492552b23d0ab30325e90b56066ec51242adc8" }
 }
