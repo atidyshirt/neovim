@@ -1,4 +1,6 @@
+---@diagnostic disable: param-type-mismatch
 local Icon = require("config.icons.icons").getIcons()
+local util = require("core.util")
 return {
   {
     "utilyre/barbecue.nvim",
@@ -7,7 +9,7 @@ return {
       "SmiteshP/nvim-navic",
       {
         "nvim-tree/nvim-web-devicons",
-        enabled = vim.env.nerd_font_enabled
+        enabled = util.str_to_bool(vim.env.nerd_font_enabled)
       },
     },
     opts = {

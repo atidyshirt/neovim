@@ -1,10 +1,13 @@
+---@diagnostic disable: param-type-mismatch
+local util = require("core.util")
+
 return {
   {
     "stevearc/oil.nvim",
     dependencies = {
       {
         "nvim-tree/nvim-web-devicons",
-        enabled = vim.env.nerd_font_enabled
+        enabled = util.str_to_bool(vim.env.nerd_font_enabled)
       },
     },
     opts = {

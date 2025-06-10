@@ -1,15 +1,19 @@
+local icons = require('config.icons.icons').getIcons()
 local util = require("core.util")
 
 return {
   {
     "rachartier/tiny-inline-diagnostic.nvim",
-    event = "VeryLazy", -- Or `LspAttach`
-    priority = 1000, -- needs to be loaded in first
+    dependencies = {
+      { "mfussenegger/nvim-lint" }
+    },
+    event = "LspAttach",
+    lazy = false,
     config = function()
-      vim.diagnostic.config({ virtual_text = false })
       require('tiny-inline-diagnostic').setup({
-        preset = 'modern',
+        preset = 'powerline',
         options = {
+          overwrite_events = { "DiagnosticChanged" },
           multilines = true,
         },
         hi = {
@@ -21,6 +25,12 @@ return {
           background = "CursorLine",
           mixing_color = util.get_highlight_value("String").background,
         },
+        format = function(diagnostic)
+          if diagnostic.source then
+            return string.format("%s [%s]", diagnostic.message, diagnostic.source)
+          end
+          return diagnostic.message
+        end,
       })
     end
   }

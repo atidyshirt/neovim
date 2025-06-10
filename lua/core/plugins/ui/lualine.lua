@@ -1,9 +1,11 @@
+---@diagnostic disable: param-type-mismatch
 local icons = require('config.icons.icons').getIcons()
+local util = require("core.util")
 
 return {
   {
     "nvim-lualine/lualine.nvim",
-    enabled = vim.env.nerd_font_enabled,
+    enabled = util.str_to_bool(vim.env.nerd_font_enabled),
     event = "VeryLazy",
     opts = {
       icons_enabled = true,
