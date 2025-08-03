@@ -62,6 +62,12 @@ return {
         cssls = {},
         html = {},
         lua_ls = {},
+        tofu_ls = {
+          cmd = { 'tofu-ls', 'serve' },
+          filetypes = { 'terraform', 'terraform-vars' },
+          root_markers = {'.terraform', '.git'},
+        },
+        yamlls = {},
       },
       attach_handlers = {},
     },

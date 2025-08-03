@@ -42,7 +42,8 @@ function M.attach_lsp_handlers(opts)
       end)
     end
 
-    require("lspconfig")[server].setup(server_opts)
+    vim.lsp.config[server] = server_opts
+    vim.lsp.enable(server)
   end
 
   for server, server_opts in pairs(opts.servers) do
