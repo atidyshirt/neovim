@@ -1,3 +1,5 @@
+local util = require("core.util")
+
 return {
   {
     "atidyshirt/gruvbox-baby",
@@ -17,6 +19,7 @@ return {
   },
   {
     "f-person/auto-dark-mode.nvim",
+    enabled = util.str_to_bool(vim.env.auto_dark_mode_enabled),
     opts = {
       set_dark_mode = function()
         vim.cmd('colorscheme gruvbox-baby')
