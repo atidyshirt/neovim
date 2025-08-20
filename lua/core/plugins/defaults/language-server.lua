@@ -5,6 +5,11 @@ local lsp_dependencies = {
   "williamboman/mason.nvim",
   "williamboman/mason-lspconfig.nvim",
   {
+    "b0o/SchemaStore.nvim",
+    lazy = true,
+    version = false, -- last release is way too old
+  },
+  {
     "folke/lazydev.nvim",
     ft = "lua",
     opts = {
@@ -25,6 +30,10 @@ local lsp_dependencies = {
         python = { "isort", "black" },
         rust = { "rustfmt", lsp_format = "fallback" },
         javascript = { "prettierd", "prettier", stop_after_first = true },
+        hcl = { "packer_fmt" },
+        terraform = { "terraform_fmt" },
+        tf = { "terraform_fmt" },
+        ["terraform-vars"] = { "terraform_fmt" },
       },
     },
     config = true,
@@ -66,8 +75,8 @@ return {
           cmd = { 'tofu-ls', 'serve' },
           filetypes = { 'terraform', 'terraform-vars' },
           root_markers = {'.terraform', '.git'},
+          settings = {},
         },
-        yamlls = {},
       },
       attach_handlers = {},
     },
