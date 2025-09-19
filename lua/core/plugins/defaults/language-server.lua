@@ -1,4 +1,5 @@
 local Util = require("core.util")
+local servers = require("config.lsp.servers")
 
 ---@diagnostic disable: missing-fields, missing-parameter
 local lsp_dependencies = {
@@ -7,7 +8,7 @@ local lsp_dependencies = {
   {
     "b0o/SchemaStore.nvim",
     lazy = true,
-    version = false, -- last release is way too old
+    version = false,
   },
   {
     "folke/lazydev.nvim",
@@ -34,6 +35,17 @@ local lsp_dependencies = {
         terraform = { "terraform_fmt" },
         tf = { "terraform_fmt" },
         ["terraform-vars"] = { "terraform_fmt" },
+        -- YAML formatting - use yamlfmt for Kubernetes-compatible formatting
+        yaml = { "yamlfmt" },
+      },
+      formatters = {
+        yamlfmt = {
+          command = "yamlfmt",
+          args = {
+            "-formatter",
+            "indent=2,include_document_start=true,retain_line_breaks_single=true",
+          },
+        },
       },
     },
     config = true,
@@ -45,7 +57,9 @@ return {
     "williamboman/mason.nvim",
     cmd = "Mason",
     config = function()
-      require("mason").setup()
+      require("mason").setup({
+        ensure_installed = { "yamlfmt" },
+      })
     end,
   },
   {
@@ -54,7 +68,7 @@ return {
       require("mason-lspconfig").setup({
         ensure_installed = {
           "lua_ls",
-          "ts_ls", 
+          "ts_ls",
           "gopls",
           "yamlls",
           "cssls",
@@ -83,162 +97,20 @@ return {
         end,
         desc = "Format",
       },
+      {
+        "<leader>ly",
+        function()
+          -- Format YAML with Kubernetes-compatible formatter
+          require("conform").format({
+            async = true,
+            formatters = { "yamlfmt" },
+          }, function() end)
+        end,
+        desc = "Format YAML (K8s compatible)",
+      },
     },
     opts = {
-      servers = {
-        -- Basic web servers
-        cssls = {},
-        html = {},
-        -- Lua
-        lua_ls = {
-          settings = {
-            Lua = {
-              runtime = { version = "LuaJIT" },
-              diagnostics = { globals = { "vim" } },
-              workspace = { library = vim.api.nvim_get_runtime_file("", true) },
-              telemetry = { enable = false },
-            },
-          },
-        },
-        -- TypeScript/JavaScript (using ts_ls instead of typescript-tools)
-        ts_ls = {
-          settings = {
-            typescript = {
-              inlayHints = {
-                includeInlayParameterNameHints = "all",
-                includeInlayParameterNameHintsWhenArgumentMatchesName = false,
-                includeInlayFunctionParameterTypeHints = true,
-                includeInlayVariableTypeHints = true,
-                includeInlayPropertyDeclarationTypeHints = true,
-                includeInlayFunctionLikeReturnTypeHints = true,
-                includeInlayEnumMemberValueHints = true,
-              },
-            },
-            javascript = {
-              inlayHints = {
-                includeInlayParameterNameHints = "all",
-                includeInlayParameterNameHintsWhenArgumentMatchesName = false,
-                includeInlayFunctionParameterTypeHints = true,
-                includeInlayVariableTypeHints = true,
-                includeInlayPropertyDeclarationTypeHints = true,
-                includeInlayFunctionLikeReturnTypeHints = true,
-                includeInlayEnumMemberValueHints = true,
-              },
-            },
-          },
-        },
-        -- Go
-        gopls = {
-          settings = {
-            gopls = {
-              gofumpt = true,
-              codelenses = {
-                gc_details = false,
-                generate = true,
-                regenerate_cgo = true,
-                run_govulncheck = true,
-                test = true,
-                tidy = true,
-                upgrade_dependency = true,
-                vendor = true,
-              },
-              hints = {
-                assignVariableTypes = true,
-                compositeLiteralFields = true,
-                compositeLiteralTypes = true,
-                constantValues = true,
-                functionTypeParameters = true,
-                parameterNames = true,
-                rangeVariableTypes = true,
-              },
-              analyses = {
-                fieldalignment = false,
-                nilness = true,
-                unusedparams = true,
-                unusedwrite = true,
-                useany = true,
-              },
-              usePlaceholders = true,
-              completeUnimported = true,
-              staticcheck = true,
-              directoryFilters = { "-node_modules" },
-            },
-          },
-        },
-        -- YAML
-        yamlls = {
-          settings = {
-            yaml = {
-              keyOrdering = false,
-              format = { 
-                enable = true,
-                singleQuote = false,
-                bracketSpacing = true,
-              },
-              validate = true,
-              hover = true,
-              completion = true,
-              schemaStore = { 
-                enable = false, -- Disable to avoid outdated schemas
-                url = "",
-              },
-              schemas = {
-                -- Use working Kubernetes schema
-                ["https://raw.githubusercontent.com/yannh/kubernetes-json-schema/master/v1.28.0-standalone-strict/all.json"] = {
-                  "*.yaml",
-                  "*.yml",
-                  "k8s/**/*.yaml",
-                  "k8s/**/*.yml",
-                  "kubernetes/**/*.yaml",
-                  "kubernetes/**/*.yml",
-                },
-                -- Fallback to older version if needed
-                ["https://raw.githubusercontent.com/yannh/kubernetes-json-schema/master/v1.22.4-standalone-strict/all.json"] = {
-                  "*.yaml",
-                  "*.yml",
-                },
-              },
-              customTags = {
-                "!And",
-                "!If",
-                "!Not",
-                "!Equals",
-                "!Or",
-                "!FindInMap sequence",
-                "!Base64",
-                "!Cidr",
-                "!Ref",
-                "!Sub",
-                "!GetAtt",
-                "!GetAZs",
-                "!ImportValue",
-                "!Select",
-                "!Split",
-                "!Join sequence",
-              },
-              -- Additional settings for better Kubernetes support
-              redhat = {
-                telemetry = {
-                  enabled = false,
-                },
-              },
-              -- Enable schema suggestions
-              schemaDownload = {
-                enable = true,
-              },
-            },
-          },
-        },
-        -- Bash
-        bashls = {},
-        -- Terraform
-        tofu_ls = {
-          cmd = { 'tofu-ls', 'serve' },
-          filetypes = { 'terraform', 'terraform-vars' },
-          root_markers = {'.terraform', '.git'},
-          settings = {},
-        },
-      },
+      servers = servers,
       attach_handlers = {},
     },
     config = function(_, opts)

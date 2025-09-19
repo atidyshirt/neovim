@@ -98,7 +98,7 @@ return {
 	max_attempts = 2,
       }
     },
-    version = '1.*',
+    -- version = '1.*',
     opts = {
       keymap = {
 	preset = 'none',
@@ -122,6 +122,11 @@ return {
 	prebuilt_binaries = { ignore_version_mismatch = true },
       },
       signature = { enabled = true, window = { show_documentation = false } },
+      -- Fix extmark issues with yamlls
+      render = {
+	use_winblend = false,
+	winblend = 0,
+      },
       cmdline = {
 	keymap = {
 	  preset = 'inherit',
@@ -130,5 +135,21 @@ return {
       },
     },
     opts_extend = { 'sources.default' },
+    config = function(_, opts)
+      -- Add error handling for extmark issues
+      local blink = require('blink.cmp')
+      
+      -- Wrap the setup function to handle extmark errors
+      local original_setup = blink.setup
+      blink.setup = function(config)
+        local ok, result = pcall(original_setup, config)
+        if not ok then
+          vim.notify("Blink.cmp setup error: " .. tostring(result), vim.log.levels.WARN, { title = "Blink.cmp" })
+        end
+        return result
+      end
+      
+      blink.setup(opts)
+    end,
   },
 }

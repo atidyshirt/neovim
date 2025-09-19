@@ -4,10 +4,9 @@
 local M = {}
 
 M.servers = {
-  bashls = true,
-  cssls = true,
-  gopls = true,
-  html = true,
+  bashls = {},
+  cssls = {},
+  html = {},
   lua_ls = {
     settings = {
       Lua = {
@@ -15,6 +14,43 @@ M.servers = {
         diagnostics = { globals = { "vim" } },
         workspace = { library = vim.api.nvim_get_runtime_file("", true) },
         telemetry = { enable = false },
+      },
+    },
+  },
+  gopls = {
+    settings = {
+      gopls = {
+        gofumpt = true,
+        codelenses = {
+          gc_details = false,
+          generate = true,
+          regenerate_cgo = true,
+          run_govulncheck = true,
+          test = true,
+          tidy = true,
+          upgrade_dependency = true,
+          vendor = true,
+        },
+        hints = {
+          assignVariableTypes = true,
+          compositeLiteralFields = true,
+          compositeLiteralTypes = true,
+          constantValues = true,
+          functionTypeParameters = true,
+          parameterNames = true,
+          rangeVariableTypes = true,
+        },
+        analyses = {
+          fieldalignment = false,
+          nilness = true,
+          unusedparams = true,
+          unusedwrite = true,
+          useany = true,
+        },
+        usePlaceholders = true,
+        completeUnimported = true,
+        staticcheck = true,
+        directoryFilters = { "-node_modules" },
       },
     },
   },
@@ -48,51 +84,27 @@ M.servers = {
     settings = {
       yaml = {
         keyOrdering = false,
-        format = { 
+        format = {
           enable = true,
           singleQuote = false,
           bracketSpacing = true,
         },
-        validate = true,
+        validate = false,
         hover = true,
         completion = true,
-        schemaStore = { 
+        schemaStore = {
           enable = false, -- Disable to avoid outdated schemas
           url = "",
         },
         schemas = {
-          -- Use working Kubernetes schema
-          ["https://raw.githubusercontent.com/yannh/kubernetes-json-schema/master/v1.28.0-standalone-strict/all.json"] = {
-            "*.yaml",
-            "*.yml",
-            "k8s/**/*.yaml",
-            "k8s/**/*.yml",
-            "kubernetes/**/*.yaml",
-            "kubernetes/**/*.yml",
-          },
-          -- Fallback to older version if needed
-          ["https://raw.githubusercontent.com/yannh/kubernetes-json-schema/master/v1.22.4-standalone-strict/all.json"] = {
-            "*.yaml",
-            "*.yml",
-          },
-        },
-        customTags = {
-          "!And",
-          "!If",
-          "!Not",
-          "!Equals",
-          "!Or",
-          "!FindInMap sequence",
-          "!Base64",
-          "!Cidr",
-          "!Ref",
-          "!Sub",
-          "!GetAtt",
-          "!GetAZs",
-          "!ImportValue",
-          "!Select",
-          "!Split",
-          "!Join sequence",
+          kubernetes = { "k8s-*.{yml,yaml}", "manifests/**/*.{yml,yaml}" },
+          ["http://json.schemastore.org/github-workflow"] = ".github/workflows/*",
+          ["http://json.schemastore.org/github-action"] = ".github/action.{yml,yaml}",
+          ["http://json.schemastore.org/ansible-stable-2.9"] = "roles/tasks/**/*.{yml,yaml}",
+          ["http://json.schemastore.org/prettierrc"] = ".prettierrc.{yml,yaml}",
+          ["http://json.schemastore.org/kustomization"] = "kustomization.{yml,yaml}",
+          ["http://json.schemastore.org/chart"] = "Chart.{yml,yaml}",
+          ["http://json.schemastore.org/circleciconfig"] = ".circleci/**/*.{yml,yaml}",
         },
         -- Additional settings for better Kubernetes support
         redhat = {
