@@ -2,24 +2,34 @@ local Icons = require('config.icons.icons').getIcons()
 vim.g.diagnostics_enabled = true
 
 local diagnostics = {
-  virtual_text = false,
-  signs = {
-    text = {
-      [vim.diagnostic.severity.ERROR] = Icons.diagnostics.error,
-      [vim.diagnostic.severity.WARN] = Icons.diagnostics.warn,
-      [vim.diagnostic.severity.HINT] = Icons.diagnostics.hint,
-      [vim.diagnostic.severity.INFO] = Icons.diagnostics.info,
+  on = {
+    virtual_text = false,
+    signs = {
+      text = {
+        [vim.diagnostic.severity.ERROR] = Icons.diagnostics.error,
+        [vim.diagnostic.severity.WARN] = Icons.diagnostics.warn,
+        [vim.diagnostic.severity.HINT] = Icons.diagnostics.hint,
+        [vim.diagnostic.severity.INFO] = Icons.diagnostics.info,
+      },
+    },
+    virtual_lines = false,
+    update_in_insert = true,
+    severity_sort = true,
+    float = {
+      focusable = false,
+      style = "minimal",
+      source = "always",
+      header = "",
+      prefix = "●",
     },
   },
-  virtual_lines = false,
-  update_in_insert = true,
-  severity_sort = true,
-  float = {
-    focusable = false,
-    style = "minimal",
-    source = "always",
-    header = "",
-    prefix = "●",
+  off = {
+    virtual_text = false,
+    signs = false,
+    virtual_lines = false,
+    update_in_insert = false,
+    severity_sort = false,
+    float = false,
   },
 }
 

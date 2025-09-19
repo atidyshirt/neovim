@@ -9,17 +9,6 @@ end, {})
 
 return {
   {
-    'diogo464/kubernetes.nvim',
-    opts = {
-      schema_strict = true,
-      schema_generate_always = true,
-      patch = true,
-      yamlls_root = function()
-        return vim.fs.joinpath(vim.fn.stdpath("data"), "/mason/packages/yaml-language-server/")
-      end
-    }
-  },
-  {
     "cwrau/yaml-schema-detect.nvim",
     ---@module "yaml-schema-detect"
     ---@type YamlSchemaDetectOptions

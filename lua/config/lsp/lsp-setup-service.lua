@@ -11,13 +11,18 @@ local M = {}
 local util = require("core.util")
 local mason = require("mason-lspconfig")
 local mason_server_mappings = require("mason-lspconfig.mappings")
-local blink = require("blink.cmp")
 
----@return lsp.ClientCapabilities
+---@return vim.lsp.ClientCapabilities
 local function get_capabilities()
   local base_caps = vim.lsp.protocol.make_client_capabilities()
   local enhanced_caps = util.capabilities(base_caps)
-  return blink.get_lsp_capabilities(enhanced_caps)
+  
+  -- Add completion capabilities if cmp_nvim_lsp is available
+  if pcall(require, "cmp_nvim_lsp") then
+    enhanced_caps = require("cmp_nvim_lsp").default_capabilities(enhanced_caps)
+  end
+  
+  return enhanced_caps
 end
 
 ---@param opts LspSetupOpts
