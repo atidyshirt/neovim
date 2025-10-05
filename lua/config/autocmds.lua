@@ -8,14 +8,6 @@ vim.api.nvim_create_autocmd({ "TextYankPost" }, {
   end,
 })
 
--- resize splits if window got resized
-vim.api.nvim_create_autocmd({ "VimResized" }, {
-  group = Util.augroup("resize_splits"),
-  callback = function()
-    vim.cmd("tabdo wincmd =")
-  end,
-})
-
 -- close some filetypes with <q>
 vim.api.nvim_create_autocmd("FileType", {
   group = Util.augroup("close_with_q"),
@@ -39,19 +31,10 @@ vim.api.nvim_create_autocmd("FileType", {
 -- Set wrap and spell in markdown and gitcommit
 vim.api.nvim_create_autocmd({ "FileType" }, {
   group = Util.augroup("wrap_spell"),
-  pattern = { "gitcommit", "markdown" },
+  pattern = { "gitcommit" },
   callback = function()
     vim.opt_local.wrap = true
     vim.opt_local.spell = true
-  end,
-})
-
--- fix comment
-vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
-  group = Util.augroup("comment_newline"),
-  pattern = { "*" },
-  callback = function()
-    vim.cmd([[set formatoptions-=cro]])
   end,
 })
 
@@ -68,31 +51,10 @@ vim.api.nvim_create_autocmd({ "BufEnter" }, {
   end,
 })
 
--- clear cmd output
-vim.api.nvim_create_autocmd({ "CursorHold" }, {
-  group = Util.augroup("clear_term"),
+-- auto enter terminal mode when opening a terminal/navigating to a terminal
+vim.api.nvim_create_autocmd({"BufWinEnter", "BufEnter", "TermOpen", "TermEnter"}, {
+  pattern = "term://*",
   callback = function()
-    vim.cmd([[echon '']])
-  end,
-})
-
-vim.api.nvim_create_autocmd({ "TermOpen" }, {
-  pattern = { "*" },
-  callback = function()
-    vim.opt_local["number"] = false
-    vim.opt_local["signcolumn"] = "no"
-    vim.opt_local["foldcolumn"] = "0"
-  end,
-})
-
--- Auto create dir when saving a file, in case some intermediate directory does not exist
-vim.api.nvim_create_autocmd({ "BufWritePre" }, {
-  group = Util.augroup("auto_create_dir"),
-  callback = function(event)
-    if event.match:match("^%w%w+://") then
-      return
-    end
-    local file = vim.loop.fs_realpath(event.match) or event.match
-    vim.fn.mkdir(vim.fn.fnamemodify(file, ":p:h"), "p")
+    vim.defer_fn(function() vim.cmd("startinsert!") end, 50)
   end,
 })
