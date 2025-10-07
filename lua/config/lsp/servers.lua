@@ -7,6 +7,7 @@ M.servers = {
   bashls = {},
   cssls = {},
   html = {},
+  copilot = {},
   lua_ls = {
     settings = {
       Lua = {

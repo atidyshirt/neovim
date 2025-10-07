@@ -12,6 +12,7 @@ require("lazy").setup({
     { import = "core.plugins.extensions" },
   },
   concurrency = 10,
+  change_detection = { enabled = true, notify = false },
   defaults = {
     lazy = false,
     version = "*",

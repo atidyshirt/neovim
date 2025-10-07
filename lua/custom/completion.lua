@@ -45,11 +45,6 @@ local function get_completion_sources()
     { name = "buffer" },
   }
 
-  -- Add supermaven if enabled
-  if vim.env.supermaven_enabled and vim.env.supermaven_enabled:lower() == "true" then
-    table.insert(sources, 2, { name = "supermaven" })
-  end
-
   return sources
 end
 

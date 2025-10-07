@@ -1,6 +1,9 @@
+local util = require("core.util")
+
 return {
   {
     "folke/sidekick.nvim",
+    enabled = util.str_to_bool(vim.env.copilot_enabled),
     opts = {
       cli = {
         mux = {
@@ -10,16 +13,6 @@ return {
       },
     },
     keys = {
-      {
-        "<tab>",
-        function()
-          if not require("sidekick").nes_jump_or_apply() then
-            return "<Tab>"
-          end
-        end,
-        expr = true,
-        desc = "Goto/Apply Next Edit Suggestion",
-      },
       {
         "<leader>as",
         function() require("sidekick.cli").select() end,

@@ -11,11 +11,11 @@ return {
       input = { enabled = true },
       notifier = {
         enabled = true,
-        style = 'compact',
+        style = 'minimal',
         timeout = 10000,
+        top_down = false,
         margin = { bottom = 1 },
         padding = true,
-        top_down = false,
       },
       statuscolumn = { enabled = true },
       indent = { enabled = true },

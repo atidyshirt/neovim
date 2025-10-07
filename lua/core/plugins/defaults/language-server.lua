@@ -31,22 +31,22 @@ local lsp_dependencies = {
         python = { "isort", "black" },
         rust = { "rustfmt", lsp_format = "fallback" },
         javascript = { "prettierd", "prettier", stop_after_first = true },
-        hcl = { "packer_fmt" },
+        typescript = { "prettierd", "prettier", stop_after_first = true },
         terraform = { "terraform_fmt" },
         tf = { "terraform_fmt" },
         ["terraform-vars"] = { "terraform_fmt" },
-        -- YAML formatting - use yamlfmt for Kubernetes-compatible formatting
-        yaml = { "yamlfmt" },
+        yaml = { "prettierd", "prettier", stop_after_first = true },
+        html = { "prettierd", "prettier", stop_after_first = true },
+        css =  "prettierd", "prettier", stop_after_first = true ,
       },
       formatters = {
-        yamlfmt = {
-          command = "yamlfmt",
-          args = {
-            "-formatter",
-            "indent=2,include_document_start=true,retain_line_breaks_single=true",
-          },
-        },
-      },
+        prettier = {
+          inherit = false,
+          command = "prettier",
+          args = { "--config", "/path/to/custom/.prettierrc" },
+        }
+
+      }
     },
     config = true,
   },
@@ -96,17 +96,6 @@ return {
           require("conform").format({ async = true }, function() end)
         end,
         desc = "Format",
-      },
-      {
-        "<leader>ly",
-        function()
-          -- Format YAML with Kubernetes-compatible formatter
-          require("conform").format({
-            async = true,
-            formatters = { "yamlfmt" },
-          }, function() end)
-        end,
-        desc = "Format YAML (K8s compatible)",
       },
     },
     opts = {
