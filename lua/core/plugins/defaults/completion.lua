@@ -93,10 +93,6 @@ return {
         prebuilt_binaries = { ignore_version_mismatch = true },
       },
       signature = { enabled = true, window = { show_documentation = false } },
-      render = {
-        use_winblend = false,
-        winblend = 0,
-      },
       cmdline = {
         keymap = {
           preset = "inherit",
