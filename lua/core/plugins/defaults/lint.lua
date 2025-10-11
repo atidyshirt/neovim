@@ -16,7 +16,6 @@ return {
       typescriptreact = { "oxlint" },
       sh = { "shellcheck" },
       json = { "jsonlint" },
-      markdown = { "markdownlint" },
       css = { "stylelint" },
     }
 

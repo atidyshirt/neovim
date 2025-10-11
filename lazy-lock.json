@@ -9,6 +9,7 @@
   "conform.nvim": { "branch": "master", "commit": "3543d000dafbc41cc7761d860cfdb24e82154f75" },
   "copilot-lsp": { "branch": "main", "commit": "a80e0c17e7366614d39506825f49a25d285fead9" },
   "deadcolumn.nvim": { "branch": "master", "commit": "9cda5755c0fe4006ba000b1778bb282aede3fd40" },
+  "diffview.nvim": { "branch": "main", "commit": "4516612fe98ff56ae0415a259ff6361a89419b0a" },
   "gitsigns.nvim": { "branch": "main", "commit": "7010000889bfb6c26065e0b0f7f1e6aa9163edd9" },
   "grug-far.nvim": { "branch": "main", "commit": "48f9afb684de1c191af7bed96bc1db85ba33f6a4" },
   "gruvbox-baby": { "branch": "main", "commit": "ec010d8e0aaf832648963bab45199daf16a27709" },
