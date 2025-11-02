@@ -33,6 +33,7 @@ local lsp_dependencies = {
         javascript = { "prettierd", "prettier", stop_after_first = true },
         typescript = { "prettierd", "prettier", stop_after_first = true },
         terraform = { "terraform_fmt" },
+        markdown  = { "mdformat" },
         tf = { "terraform_fmt" },
         ["terraform-vars"] = { "terraform_fmt" },
         yaml = { "prettierd", "prettier", stop_after_first = true },
