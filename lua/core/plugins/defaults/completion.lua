@@ -55,8 +55,8 @@ return {
         ["<Return>"] = { "accept", "fallback" },
         ["<C-j>"] = { "select_next", "show", "fallback" },
         ["<C-k>"] = { "select_prev", "show", "fallback" },
-        ["<C-d>"] = { "scroll_documentation_up", "fallback" },
-        ["<C-u>"] = { "scroll_documentation_down", "fallback" },
+        ["<C-u>"] = { "scroll_documentation_up", "fallback" },
+        ["<C-d>"] = { "scroll_documentation_down", "fallback" },
       },
       appearance = {
         nerd_font_variant = "normal",

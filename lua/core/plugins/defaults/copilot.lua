@@ -14,27 +14,30 @@ return {
     },
     keys = {
       {
-        "<leader>as",
-        function() require("sidekick.cli").select() end,
-        desc = "Select CLI",
+       "<leader>aa",
+        function()
+            require("sidekick").nes_jump_or_apply()
+        end,
+        expr = true,
+        desc = "jump or apply suggestion",
+
       },
       {
         "<leader>at",
-        function() require("sidekick.cli").send({ msg = "{this}" }) end,
-        mode = { "x", "n" },
-        desc = "Send This",
+        function() require("sidekick.cli").toggle() end,
+        desc = "Sidekick Toggle",
+        mode = { "n", "t", "x" },
+      },
+      {
+        "<leader>as",
+        function() require("sidekick.cli").select() end,
+        desc = "Select CLI",
       },
       {
         "<leader>av",
         function() require("sidekick.cli").send({ msg = "{selection}" }) end,
         mode = { "x" },
         desc = "Send Visual Selection",
-      },
-      {
-        "<leader>ap",
-        function() require("sidekick.cli").prompt() end,
-        mode = { "n", "x" },
-        desc = "Sidekick Select Prompt",
       },
       {
         "<leader>ai",

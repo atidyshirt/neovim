@@ -26,7 +26,12 @@ return {
         "yaml",
         "scss",
         "dockerfile",
+        "latex",
+        "markdown",
+        "markdown_inline",
+        "typst",
       },
+
       highlight = {
         enable = true,
         disable = disable_ts_for_large_files,
