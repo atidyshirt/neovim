@@ -5,6 +5,9 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
+  git = {
+    timeout = 300,
+  },
   spec = {
     { import = "core.plugins.defaults" },
     { import = "core.plugins.defaults.lsp" },
