@@ -1,0 +1,12 @@
+# .pre-commit-config.yaml
+minimum_pre_commit_version: 3.3.0
+default_install_hook_types: [pre-commit, commit-msg]
+
+repos:
+  - repo: https://github.com/espressif/conventional-precommit-linter
+    rev: v1.7.0
+    hooks:
+      - id: conventional-precommit-linter
+        stages: [commit-msg]
+        args:
+          - --types=feat,fix,docs,chore,refactor,perf,test
