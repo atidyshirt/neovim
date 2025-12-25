@@ -65,7 +65,7 @@ vim.opt.viewoptions:remove "curdir"
 
 vim.opt.list = true
 
-if vim.env.TERM:find('256color') then
+if vim.env.TERM and vim.env.TERM:find('256color') then
   options.termguicolors = true
 else
   options.termguicolors = false
