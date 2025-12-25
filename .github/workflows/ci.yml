@@ -14,26 +14,43 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Setup Neovim 0.12
+      - name: Cache Neovim
+        id: cache-neovim
+        uses: actions/cache@v4
+        with:
+          path: ~/.local/share/neovim
+          key: neovim-${{ runner.os }}-${{ github.ref_name }}-nightly
+
+      - name: Setup Neovim nightly
         uses: MunifTanjim/setup-neovim-action@v1
         with:
           tag: nightly
 
-      - name: Bootstrap Test Environment
+      - name: Cache Neovim plugins
+        id: cache-nvim-plugins
+        uses: actions/cache@v4
+        with:
+          path: ~/.local/share/nvim/site/pack/vendor/start
+          key: nvim-plugins-${{ runner.os }}-${{ hashFiles('**/lockfiles', '**/plugin-lock.json') }}
+          restore-keys: |
+            nvim-plugins-${{ runner.os }}-
+
+      - name: Install test dependencies (plenary)
+        if: steps.cache-nvim-plugins.outputs.cache-hit != 'true'
         run: |
-          # 1. Install Plenary (the test runner) into Neovim's package path
           mkdir -p ~/.local/share/nvim/site/pack/vendor/start
-          git clone --depth 1 github.com \
-            ~/.local/share/nvim/site/pack/vendor/start/plenary.nvim
-          
-          # 2. Link this repository to the standard Neovim config location
-          # This ensures nvim finds your init.lua and lsp/ directory
+          if [ ! -d ~/.local/share/nvim/site/pack/vendor/start/plenary.nvim ]; then
+            git clone --depth 1 https://github.com/nvim-lua/plenary.nvim \
+              ~/.local/share/nvim/site/pack/vendor/start/plenary.nvim
+          fi
+
+      - name: Link config into Neovim
+        run: |
           mkdir -p ~/.config
-          ln -s $(pwd) ~/.config/nvim
+          rm -rf ~/.config/nvim
+          ln -s "$(pwd)" ~/.config/nvim
 
       - name: Run LSP Smoke Tests
         run: |
-          # Use headless mode to run Plenary tests within the Neovim environment.
-          # This ensures the 'vim' global and 'vim.lsp.config' are available.
-          # The -c flag runs the command then exits with the test's exit code.
+          test -d ~/.local/share/nvim/site/pack/vendor/start/plenary.nvim
           nvim --headless -c "PlenaryBustedDirectory tests/"
