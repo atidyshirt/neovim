@@ -8,11 +8,24 @@ vim.pack.add({
     { src = "https://github.com/stevearc/conform.nvim" },
 })
 
-vim.env.PATH = vim.fn.stdpath("data") .. "/mason/bin:" .. vim.env.PATH
-require("mason").setup({ ensure_installed = { "yamlfmt" } })
+vim.diagnostic.config({ signs = true })
 
-require("mason-lspconfig").setup({
-    ensure_installed = {
+vim.keymap.set({ "n", "v" }, "<leader>la", vim.lsp.buf.code_action, { desc = "Code Action" })
+vim.keymap.set("n", "<leader>ll", vim.lsp.codelens.run,          { desc = "CodeLens Action" })
+vim.keymap.set("n", "<leader>lr", vim.lsp.buf.rename,            { desc = "Rename" })
+vim.keymap.set("n", "<leader>lf", function()
+  require("conform").format({ async = true })
+end, { desc = "Format" })
+
+vim.api.nvim_create_autocmd({ "BufReadPost", "BufNewFile" }, {
+  once = true,
+  callback = function()
+    vim.env.PATH = vim.fn.stdpath("data") .. "/mason/bin:" .. vim.env.PATH
+
+    require("mason").setup({ ensure_installed = { "yamlfmt" } })
+
+    require("mason-lspconfig").setup({
+      ensure_installed = {
         "bashls",
         "gopls",
         "lua_ls",
@@ -25,29 +38,27 @@ require("mason-lspconfig").setup({
         "html",
         "copilot",
         "tofu_ls",
-    },
-    automatic_installation = true,
-})
+      },
+      automatic_installation = true,
+    })
 
-vim.lsp.enable({
-    "bashls",
-    "gopls",
-    "lua_ls",
-    "texlab",
-    "ts_ls",
-    "rust_analyzer",
-    "yamlls",
-    "pyright",
-    "cssls",
-    "html",
-    "tofu_ls",
-    "copilot",
-})
+    vim.lsp.enable({
+      "bashls",
+      "gopls",
+      "lua_ls",
+      "texlab",
+      "ts_ls",
+      "rust_analyzer",
+      "yamlls",
+      "pyright",
+      "cssls",
+      "html",
+      "tofu_ls",
+      "copilot",
+    })
 
-vim.diagnostic.config({ signs = true })
-
-require("conform").setup({
-    formatters_by_ft = {
+    require("conform").setup({
+      formatters_by_ft = {
         lua = { "stylua" },
         python = { "isort", "black" },
         rust = { "rustfmt", lsp_format = "fallback" },
@@ -60,32 +71,18 @@ require("conform").setup({
         yaml = { "prettierd", "prettier", stop_after_first = true },
         html = { "prettierd", "prettier", stop_after_first = true },
         css = { "prettierd", "prettier", stop_after_first = true },
-    },
-})
+      },
+    })
 
-require("lazydev").setup({
-    library = {
+    vim.cmd.packadd("lazydev.nvim")
+    require("lazydev").setup({
+      library = {
         "LazyVim",
         { path = "LazyVim", words = { "LazyVim" } },
         { path = "${3rd}/luv/library", words = { "vim%.uv" } },
         { path = "${3rd}/busted/library" },
         { path = "wezterm-types", mods = { "wezterm" } },
-    },
+      },
+    })
+  end,
 })
-
-vim.keymap.set(
-    { "n", "v" },
-    "<leader>la",
-    vim.lsp.buf.code_action,
-    { desc = "Code Action" }
-)
-vim.keymap.set(
-    "n",
-    "<leader>ll",
-    vim.lsp.codelens.run,
-    { desc = "CodeLens Action" }
-)
-vim.keymap.set("n", "<leader>lr", vim.lsp.buf.rename, { desc = "Rename" })
-vim.keymap.set("n", "<leader>lf", function()
-    require("conform").format({ async = true })
-end, { desc = "Format" })

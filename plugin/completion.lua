@@ -8,90 +8,95 @@ vim.pack.add({
     { src = "https://github.com/zbirenbaum/copilot-cmp" },
 })
 
--- We disable suggestion/panel so they don't conflict with cmp
-require("copilot").setup({
-    suggestion = { enabled = false },
-    panel = { enabled = false },
-})
-require("copilot_cmp").setup()
+vim.opt.completeopt = { "menu", "menuone", "noinsert" }
+vim.opt.shortmess:append("c")
 
-local cmp = require("cmp")
-local luasnip = require("luasnip")
+vim.api.nvim_create_autocmd("InsertEnter", {
+  once = true,
+  callback = function()
+    require("copilot").setup({
+      suggestion = { enabled = false },
+      panel = { enabled = false },
+    })
+    require("copilot_cmp").setup()
 
-cmp.setup({
-    completion = {
+    local cmp = require("cmp")
+    local luasnip = require("luasnip")
+
+    cmp.setup({
+      completion = {
         autocomplete = { cmp.TriggerEvent.TextChanged },
         completeopt = "menu,menuone,noinsert",
-    },
+      },
 
-    snippet = {
+      snippet = {
         expand = function(args)
-            luasnip.lsp_expand(args.body)
+          luasnip.lsp_expand(args.body)
         end,
-    },
+      },
 
-    mapping = cmp.mapping.preset.insert({
+      mapping = cmp.mapping.preset.insert({
         ["<C-j>"] = cmp.mapping(function()
-            if cmp.visible() then
-                cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
-            elseif luasnip.expand_or_locally_jumpable() then
-                luasnip.expand_or_jump()
-            else
-                cmp.complete()
-            end
+          if cmp.visible() then
+            cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
+          elseif luasnip.expand_or_locally_jumpable() then
+            luasnip.expand_or_jump()
+          else
+            cmp.complete()
+          end
         end, { "i", "s" }),
 
         ["<C-k>"] = cmp.mapping(function()
-            if cmp.visible() then
-                cmp.select_prev_item()
-            elseif luasnip.locally_jumpable(-1) then
-                luasnip.jump(-1)
-            else
-                cmp.complete()
-            end
+          if cmp.visible() then
+            cmp.select_prev_item()
+          elseif luasnip.locally_jumpable(-1) then
+            luasnip.jump(-1)
+          else
+            cmp.complete()
+          end
         end, { "i", "s" }),
 
         ["<C-e>"] = cmp.mapping(function(fallback)
-            if cmp.visible() then
-                cmp.abort()
-            else
-                fallback()
-            end
+          if cmp.visible() then
+            cmp.abort()
+          else
+            fallback()
+          end
         end),
 
         ["<CR>"] = cmp.mapping.confirm({ select = true }),
         ["<C-l>"] = cmp.mapping.confirm({ select = true }),
         ["<C-d>"] = cmp.mapping.scroll_docs(4),
         ["<C-u>"] = cmp.mapping.scroll_docs(-4),
-    }),
+      }),
 
-    sources = cmp.config.sources({
-        { name = "copilot", group_index = 2 },
+      sources = cmp.config.sources({
+        { name = "copilot",  group_index = 2 },
         { name = "nvim_lsp", group_index = 2 },
-        { name = "luasnip", group_index = 2 },
-        { name = "path", group_index = 2 },
-        { name = "buffer", group_index = 2 },
-    }),
+        { name = "luasnip",  group_index = 2 },
+        { name = "path",     group_index = 2 },
+        { name = "buffer",   group_index = 2 },
+      }),
 
-    window = {
+      window = {
         documentation = cmp.config.window.bordered(),
-    },
+      },
 
-    formatting = {
+      formatting = {
         fields = { "abbr", "menu", "kind" },
         format = function(entry, vim_item)
-            if entry.source.name == "copilot" then
-                vim_item.kind = "   Copilot"
-                vim_item.kind_hl_group = "CmpItemKindCopilot"
-            end
-            return vim_item
+          if entry.source.name == "copilot" then
+            vim_item.kind = "   Copilot"
+            vim_item.kind_hl_group = "CmpItemKindCopilot"
+          end
+          return vim_item
         end,
-    },
+      },
+    })
+
+    -- LSP capabilities hook (cheap)
+    local capabilities = vim.lsp.protocol.make_client_capabilities()
+    capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
+    vim.lsp.config("*", { capabilities })
+  end,
 })
-
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
-vim.lsp.config("*", { capabilities })
-
-vim.opt.completeopt = { "menu", "menuone", "noinsert" }
-vim.opt.shortmess:append("c")
