@@ -24,14 +24,9 @@ vim.opt.colorcolumn = "120"
 vim.opt.wrap = false
 vim.opt.laststatus = 3
 vim.opt.list = true
-vim.opt.fillchars = {
-  foldopen = "",
-  foldclose = "",
-  fold = " ",
-  foldsep = " ",
-  diff = "╱",
-  eob = " ",
-}
+vim.opt.foldenable = false
+vim.opt.foldlevel = 99
+vim.opt.foldlevelstart = 99
 
 if vim.env.TERM and vim.env.TERM:find('256color') then
   vim.opt.termguicolors = true
