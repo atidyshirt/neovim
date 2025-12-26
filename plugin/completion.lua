@@ -1,4 +1,7 @@
-vim.pack.add({
+local lazyload = require("utils.lazyload")
+
+lazyload({
+  packs = {
     { src = "https://github.com/hrsh7th/nvim-cmp" },
     { src = "https://github.com/hrsh7th/cmp-nvim-lsp" },
     { src = "https://github.com/hrsh7th/cmp-buffer" },
@@ -6,14 +9,12 @@ vim.pack.add({
     { src = "https://github.com/L3MON4D3/LuaSnip" },
     { src = "https://github.com/zbirenbaum/copilot.lua" },
     { src = "https://github.com/zbirenbaum/copilot-cmp" },
-})
+  },
+  trigger = { "InsertEnter" },
+  setup = function()
+    vim.opt.completeopt = { "menu", "menuone", "noinsert" }
+    vim.opt.shortmess:append("c")
 
-vim.opt.completeopt = { "menu", "menuone", "noinsert" }
-vim.opt.shortmess:append("c")
-
-vim.api.nvim_create_autocmd("InsertEnter", {
-  once = true,
-  callback = function()
     require("copilot").setup({
       suggestion = { enabled = false },
       panel = { enabled = false },
@@ -94,7 +95,6 @@ vim.api.nvim_create_autocmd("InsertEnter", {
       },
     })
 
-    -- LSP capabilities hook (cheap)
     local capabilities = vim.lsp.protocol.make_client_capabilities()
     capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
     vim.lsp.config("*", { capabilities })

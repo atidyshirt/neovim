@@ -1,25 +1,34 @@
-vim.pack.add({
-  { src = "https://github.com/nvim-tree/nvim-web-devicons", opt = true },
-  { src = "https://github.com/stevearc/oil.nvim", opt = true },
+local lazyload = require("utils.lazyload")
+
+lazyload({
+  packs = {
+    { src = "https://github.com/nvim-tree/nvim-web-devicons" },
+    { src = "https://github.com/stevearc/oil.nvim" },
+  },
+
+  trigger = "CmdUndefined",
+  pattern = "Oil",
+
+  setup = function()
+    require("nvim-web-devicons").setup({
+      color_icons = true,
+      default = true,
+      strict = true,
+    })
+
+    require("oil").setup({
+      default_file_explorer = true,
+      columns = { "icon" },
+      view_options = { show_hidden = true },
+      keymaps = {
+        ["g?"] = "actions.show_help",
+        ["<CR>"] = "actions.select",
+        ["-"]   = "actions.parent",
+        ["_"]   = "actions.open_cwd",
+        ["q"]   = "actions.close",
+      },
+    })
+  end,
 })
 
 vim.keymap.set("n", "<leader>e", "<cmd>Oil<CR>", { desc = "Open parent directory" })
-
-vim.api.nvim_create_user_command("Oil", function(opts)
-  vim.cmd.packadd("nvim-web-devicons")
-  vim.cmd.packadd("oil.nvim")
-
-  if not package.loaded["oil"] then
-    require("nvim-web-devicons").setup({})
-    require("oil").setup({
-      columns = { "icon" },
-      view_options = { show_hidden = true },
-    })
-  end
-
-  vim.cmd("Oil " .. table.concat(opts.fargs, " "))
-end, {
-  nargs = "*",
-  complete = "dir",
-  desc = "Edit directory with oil.nvim",
-})
