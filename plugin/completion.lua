@@ -6,7 +6,6 @@ lazyload({
     { src = "https://github.com/hrsh7th/cmp-nvim-lsp" },
     { src = "https://github.com/hrsh7th/cmp-buffer" },
     { src = "https://github.com/hrsh7th/cmp-path" },
-    { src = "https://github.com/L3MON4D3/LuaSnip" },
     { src = "https://github.com/zbirenbaum/copilot.lua" },
     { src = "https://github.com/zbirenbaum/copilot-cmp" },
   },
@@ -22,7 +21,6 @@ lazyload({
     require("copilot_cmp").setup()
 
     local cmp = require("cmp")
-    local luasnip = require("luasnip")
 
     cmp.setup({
       completion = {
@@ -30,18 +28,10 @@ lazyload({
         completeopt = "menu,menuone,noinsert",
       },
 
-      snippet = {
-        expand = function(args)
-          luasnip.lsp_expand(args.body)
-        end,
-      },
-
       mapping = cmp.mapping.preset.insert({
         ["<C-j>"] = cmp.mapping(function()
           if cmp.visible() then
             cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
-          elseif luasnip.expand_or_locally_jumpable() then
-            luasnip.expand_or_jump()
           else
             cmp.complete()
           end
@@ -50,8 +40,6 @@ lazyload({
         ["<C-k>"] = cmp.mapping(function()
           if cmp.visible() then
             cmp.select_prev_item()
-          elseif luasnip.locally_jumpable(-1) then
-            luasnip.jump(-1)
           else
             cmp.complete()
           end
@@ -74,7 +62,6 @@ lazyload({
       sources = cmp.config.sources({
         { name = "copilot",  group_index = 2 },
         { name = "nvim_lsp", group_index = 2 },
-        { name = "luasnip",  group_index = 2 },
         { name = "path",     group_index = 2 },
         { name = "buffer",   group_index = 2 },
       }),

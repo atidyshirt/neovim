@@ -30,16 +30,3 @@ end, { desc = "Send Visual Selection" })
 vim.keymap.set({ "n" }, "<leader>ai", function()
   require("sidekick.cli").toggle({ name = "copilot", focus = true })
 end, { desc = "Sidekick Toggle Copilot" })
-
-vim.keymap.set({ "n" }, "<leader>ah", function()
-  local harpoon = require("after.plugin.harpoon")
-  local items = harpoon:list().items
-  local context = ""
-  for _, item in ipairs(items) do
-    if item.value and item.value ~= "" then
-      context = context .. string.format("@%s\n", item.value)
-    end
-  end
-  require("sidekick.cli").send({ msg = context })
-end, { desc = "Send Harpoon List to Sidekick" })
-
