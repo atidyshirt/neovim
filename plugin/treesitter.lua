@@ -1,9 +1,9 @@
 vim.pack.add({
-    { src = "https://github.com/nvim-treesitter/nvim-treesitter" },
+    { src = "https://github.com/nvim-treesitter/nvim-treesitter", version = "main" },
     { src = "https://github.com/windwp/nvim-ts-autotag", opt = true },
 })
 
-require("nvim-treesitter").install({
+local ensure_installed = {
     "bash",
     "html",
     "javascript",
@@ -18,7 +18,18 @@ require("nvim-treesitter").install({
     "dockerfile",
     "markdown",
     "markdown_inline",
+    "go",
+    "python",
+}
+
+require("nvim-treesitter").setup({
+    install_dir = vim.fn.stdpath('data') .. '/site',
+    sync_install = true,
+    highlight = { enable = true },
+    indent = { enable = true }
 })
+
+require("nvim-treesitter").install(ensure_installed)
 
 vim.api.nvim_create_autocmd("FileType", {
     group = vim.api.nvim_create_augroup("TreesitterCore", { clear = true }),
