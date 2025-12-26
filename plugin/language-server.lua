@@ -23,6 +23,7 @@ require("mason-lspconfig").setup({
         "pyright",
         "cssls",
         "html",
+        "copilot",
         "tofu_ls",
     },
     automatic_installation = true,

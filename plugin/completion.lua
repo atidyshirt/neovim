@@ -4,7 +4,16 @@ vim.pack.add({
     { src = "https://github.com/hrsh7th/cmp-buffer" },
     { src = "https://github.com/hrsh7th/cmp-path" },
     { src = "https://github.com/L3MON4D3/LuaSnip" },
+    { src = "https://github.com/zbirenbaum/copilot.lua" },
+    { src = "https://github.com/zbirenbaum/copilot-cmp" },
 })
+
+-- We disable suggestion/panel so they don't conflict with cmp
+require("copilot").setup({
+    suggestion = { enabled = false },
+    panel = { enabled = false },
+})
+require("copilot_cmp").setup()
 
 local cmp = require("cmp")
 local luasnip = require("luasnip")
@@ -15,11 +24,6 @@ cmp.setup({
         completeopt = "menu,menuone,noinsert",
     },
 
-    performance = {
-        fetching_timeout = 50,
-        max_view_entries = 20,
-    },
-
     snippet = {
         expand = function(args)
             luasnip.lsp_expand(args.body)
@@ -27,7 +31,7 @@ cmp.setup({
     },
 
     mapping = cmp.mapping.preset.insert({
-        ["<Tab>"] = cmp.mapping(function(fallback)
+        ["<C-j>"] = cmp.mapping(function(fallback)
             if cmp.visible() then
                 cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
             elseif luasnip.expand_or_locally_jumpable() then
@@ -37,7 +41,7 @@ cmp.setup({
             end
         end, { "i", "s" }),
 
-        ["<S-Tab>"] = cmp.mapping(function(fallback)
+        ["<C-k>"] = cmp.mapping(function(fallback)
             if cmp.visible() then
                 cmp.select_prev_item()
             elseif luasnip.locally_jumpable(-1) then
@@ -55,26 +59,18 @@ cmp.setup({
             end
         end),
 
-        ["<C-j>"] = cmp.mapping(function()
-            if cmp.visible() then
-                cmp.select_next_item()
-            else
-                cmp.complete()
-            end
-        end),
-
         ["<CR>"] = cmp.mapping.confirm({ select = true }),
         ["<C-l>"] = cmp.mapping.confirm({ select = true }),
-        ["<C-k>"] = cmp.mapping.select_prev_item(),
         ["<C-d>"] = cmp.mapping.scroll_docs(4),
         ["<C-u>"] = cmp.mapping.scroll_docs(-4),
     }),
 
     sources = cmp.config.sources({
-        { name = "nvim_lsp" },
-        { name = "luasnip" },
-        { name = "path" },
-        { name = "buffer" },
+        { name = "copilot", group_index = 2 },
+        { name = "nvim_lsp", group_index = 2 },
+        { name = "luasnip", group_index = 2 },
+        { name = "path", group_index = 2 },
+        { name = "buffer", group_index = 2 },
     }),
 
     window = {
@@ -83,6 +79,13 @@ cmp.setup({
 
     formatting = {
         fields = { "abbr", "menu", "kind" },
+        format = function(entry, vim_item)
+            if entry.source.name == "copilot" then
+                vim_item.kind = "   Copilot"
+                vim_item.kind_hl_group = "CmpItemKindCopilot"
+            end
+            return vim_item
+        end,
     },
 })
 
