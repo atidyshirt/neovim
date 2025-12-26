@@ -32,7 +32,7 @@ vim.keymap.set({ "n" }, "<leader>ai", function()
 end, { desc = "Sidekick Toggle Copilot" })
 
 vim.keymap.set({ "n" }, "<leader>ah", function()
-  local harpoon = require("harpoon")
+  local harpoon = require("after.plugin.harpoon")
   local items = harpoon:list().items
   local context = ""
   for _, item in ipairs(items) do
