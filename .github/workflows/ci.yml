@@ -18,10 +18,12 @@ jobs:
         id: cache-neovim
         uses: actions/cache@v4
         with:
-          path: ~/.local/share/neovim
-          key: neovim-${{ runner.os }}-${{ github.ref_name }}-nightly
+          path: ~/.local/share/nvim
+          key: neovim-${{ runner.os }}-nightly
+          restore-keys: neovim-${{ runner.os }}-
 
       - name: Setup Neovim nightly
+        if: steps.cache-neovim.outputs.cache-hit != 'true'
         uses: MunifTanjim/setup-neovim-action@v1
         with:
           tag: nightly
