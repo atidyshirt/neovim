@@ -13,14 +13,14 @@ inputs:
 runs:
   using: 'composite'
   steps:
-    - name: Cache Neovim
+    # Cache MunifTanjim/setup-neovim-action internal Neovim installation dirs
+    - name: Cache Neovim installation
       id: cache-neovim
       uses: actions/cache@v4
       with:
         path: |
-          ~/.local/share/nvim
-          ~/.local/state/nvim
-          ~/.cache/nvim
+          ${{ github.action_path }}/.neovim-cache
+          ${{ github.action_path }}/neovim
         key: neovim-${{ runner.os }}-${{ inputs.neovim-tag }}
         restore-keys: |
           neovim-${{ runner.os }}-${{ inputs.neovim-tag }}-
@@ -32,17 +32,20 @@ runs:
       with:
         tag: ${{ inputs.neovim-tag }}
 
+    # Plugin caching (standard paths)
     - name: Cache Neovim plugins
       if: inputs.cache-plugins == 'true'
       id: cache-plugins
       uses: actions/cache@v4
       with:
         path: |
-          ~/.local/share/nvim/site/pack
-          ~/.local/share/nvim/lazy
-        key: nvim-plugins-${{ runner.os }}-${{ hashFiles('**/lazy-lock.json', '**/plugin-lock.json') }}
+          ~/.local/share/nvim
+          ~/.local/state/nvim
+          ~/.cache/nvim
+        key: nvim-plugins-${{ runner.os }}-${{ hashFiles('**/lazy-lock.json', '**/plugin-lock.json', 'lua/**') }}
         restore-keys: nvim-plugins-${{ runner.os }}-
 
+    # Install Plenary if no plugin cache
     - name: Install Plenary (if no plugin cache)
       if: inputs.cache-plugins == 'true' && steps.cache-plugins.outputs.cache-hit != 'true'
       shell: bash
