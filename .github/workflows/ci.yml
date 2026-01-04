@@ -9,13 +9,29 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Run pre-commit
+        uses: pre-commit/action@v3.0.1
 
       - name: Setup Neovim
         uses: ./.github/actions/setup-neovim
 
       - name: Run Neovim tests
         uses: ./.github/actions/run-neovim-tests
+
+      # 3. Semantic Release (Go Binary)
+      - name: Semantic Release
+        if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master')
+        uses: go-semantic-release/action@v3
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          changelog-file: CHANGELOG.md
+          allow-initial-development-versions: true
