@@ -1,0 +1,34 @@
+name: 'Run Neovim Plenary Tests'
+description: 'Run PlenaryBustedDirectory tests with config linking'
+inputs:
+  test-dir:
+    description: 'Directory containing *_spec.lua files'
+    required: false
+    default: 'tests'
+  config-path:
+    description: 'Path to Neovim config (relative to workspace)'
+    required: false
+    default: '.'
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Link config into Neovim
+      shell: bash
+      run: |
+        mkdir -p ~/.config
+        rm -rf ~/.config/nvim
+        ln -s "${{ inputs.config-path }}" ~/.config/nvim
+
+    - name: Verify Plenary installed
+      shell: bash
+      run: |
+        test -d ~/.local/share/nvim/site/pack/vendor/start/plenary.nvim
+
+    - name: Run Plenary tests
+      shell: bash
+      run: |
+        nvim --headless \
+          -c "PlenaryBustedDirectory ${{ inputs.test-dir }}" \
+          -c 'autocmd User PlenaryBustedFinished quitall' \
+          +qall

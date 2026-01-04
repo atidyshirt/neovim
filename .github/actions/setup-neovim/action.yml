@@ -1,0 +1,54 @@
+name: 'Setup Neovim'
+description: 'Setup Neovim with caching'
+inputs:
+  neovim-tag:
+    description: 'Neovim tag/version'
+    required: false
+    default: 'nightly'
+  cache-plugins:
+    description: 'Cache plugins too'
+    required: false
+    default: 'true'
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Cache Neovim
+      id: cache-neovim
+      uses: actions/cache@v4
+      with:
+        path: |
+          ~/.local/share/nvim
+          ~/.local/state/nvim
+          ~/.cache/nvim
+        key: neovim-${{ runner.os }}-${{ inputs.neovim-tag }}
+        restore-keys: |
+          neovim-${{ runner.os }}-${{ inputs.neovim-tag }}-
+          neovim-${{ runner.os }}-
+
+    - name: Setup Neovim
+      if: steps.cache-neovim.outputs.cache-hit != 'true'
+      uses: MunifTanjim/setup-neovim-action@v1
+      with:
+        tag: ${{ inputs.neovim-tag }}
+
+    - name: Cache Neovim plugins
+      if: inputs.cache-plugins == 'true'
+      id: cache-plugins
+      uses: actions/cache@v4
+      with:
+        path: |
+          ~/.local/share/nvim/site/pack
+          ~/.local/share/nvim/lazy
+        key: nvim-plugins-${{ runner.os }}-${{ hashFiles('**/lazy-lock.json', '**/plugin-lock.json') }}
+        restore-keys: nvim-plugins-${{ runner.os }}-
+
+    - name: Install Plenary (if no plugin cache)
+      if: inputs.cache-plugins == 'true' && steps.cache-plugins.outputs.cache-hit != 'true'
+      shell: bash
+      run: |
+        mkdir -p ~/.local/share/nvim/site/pack/vendor/start
+        if [ ! -d ~/.local/share/nvim/site/pack/vendor/start/plenary.nvim ]; then
+          git clone --depth 1 https://github.com/nvim-lua/plenary.nvim \
+            ~/.local/share/nvim/site/pack/vendor/start/plenary.nvim
+        fi
