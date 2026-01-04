@@ -31,11 +31,7 @@ local function lazyload(spec)
     pattern = patterns,
     once = once,
     callback = function()
-      for _, pack in ipairs(spec.packs) do
-        local name = pack.src:match(".*/(.-)$") or pack.src
-        if name:match("%.git$") then name = name:gsub("%.git$", "") end
-        vim.cmd("packadd " .. name)
-      end
+      vim.pack.add(spec.packs, { load = true })
 
       if spec.setup then
         pcall(spec.setup)
