@@ -22,7 +22,3 @@ standard here, and was just added to spee up startup time.
 ├── plugin/
 └── tests/
 ```
-
-[![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/colored.png)](#neovim-configuration)
-
-[Changelog](./CHANGELOG.md)
