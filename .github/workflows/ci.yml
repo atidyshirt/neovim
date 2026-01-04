@@ -27,10 +27,9 @@ jobs:
       - name: Run Neovim tests
         uses: ./.github/actions/run-neovim-tests
 
-      # 3. Semantic Release (Go Binary)
       - name: Semantic Release
         if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master')
-        uses: go-semantic-release/action@v3
+        uses: go-semantic-release/action@v1
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           changelog-file: CHANGELOG.md
