@@ -7,11 +7,8 @@ on:
     branches: [main, master]
 
 jobs:
-  test:
+  static-checks:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -21,16 +18,40 @@ jobs:
       - name: Run pre-commit
         uses: pre-commit/action@v3.0.1
 
+  test:
+    needs: static-checks
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
       - name: Setup Neovim
         uses: ./.github/actions/setup-neovim
 
       - name: Run Neovim tests
         uses: ./.github/actions/run-neovim-tests
 
-      - name: Semantic Release
-        if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master')
-        uses: go-semantic-release/action@v1
+  # Stage 3: Release (only on main/master push with release commit)
+  release:
+    needs: [static-checks, test]
+    if: |
+      github.event_name == 'push' &&
+      (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master') &&
+      contains(github.event.head_commit.message, 'release')  # Only release.* commits
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
+
+      - name: Semantic Release
+        uses: go-semantic-release/action@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
           changelog-file: CHANGELOG.md
           allow-initial-development-versions: true
