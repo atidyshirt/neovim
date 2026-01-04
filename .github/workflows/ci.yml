@@ -19,6 +19,3 @@ jobs:
 
       - name: Run Neovim tests
         uses: ./.github/actions/run-neovim-tests
-        with:
-          test-dir: 'tests'
-          config-path: '.'
