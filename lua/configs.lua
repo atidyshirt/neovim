@@ -27,6 +27,8 @@ vim.opt.list = true
 vim.opt.foldenable = false
 vim.opt.foldlevel = 99
 vim.opt.foldlevelstart = 99
+vim.opt.undofile = true
+vim.opt.undodir = vim.fn.stdpath("data") .. "/undo"
 
 if vim.env.TERM and vim.env.TERM:find('256color') then
   vim.opt.termguicolors = true
