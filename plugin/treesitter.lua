@@ -1,5 +1,11 @@
 local lazyload = require("utils.lazyload")
 
+local parsers = {
+  "bash", "html", "javascript", "json", "lua", "query", "regex",
+  "tsx", "typescript", "yaml", "scss", "dockerfile",
+  "markdown", "markdown_inline", "go", "python",
+}
+
 lazyload({
   packs = {
     { src = "https://github.com/nvim-treesitter/nvim-treesitter", version = "main" },
@@ -7,25 +13,11 @@ lazyload({
   },
   trigger = { "BufReadPost", "BufNewFile" },
   setup = function()
-    local treesitter = require("nvim-treesitter.configs")
+    local treesitter = require("nvim-treesitter")
     local autotag = require("nvim-ts-autotag")
 
-    local parsers = {
-      "bash", "html", "javascript", "json", "lua", "query", "regex",
-      "tsx", "typescript", "yaml", "scss", "dockerfile",
-      "markdown", "markdown_inline", "go", "python",
-    }
-
-    treesitter.setup({
-      ensure_installed = parsers,
-      sync_install = false,
-      auto_install = true,
-      highlight = {
-        enable = true,
-        additional_vim_regex_highlighting = false,
-      },
-      indent = { enable = true },
-    })
+    treesitter.setup({ install_dir = vim.fn.stdpath('data') .. '/site' })
+    treesitter.install(parsers):wait(300000)
 
     autotag.setup({
       opts = {
