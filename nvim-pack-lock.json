@@ -16,6 +16,15 @@
       "rev": "3e31404f0b93a2c30d151abf0648650ac811c664",
       "src": "https://github.com/utilyre/barbecue.nvim"
     },
+    "blink-copilot": {
+      "rev": "7ad8209b2f880a2840c94cdcd80ab4dc511d4f39",
+      "src": "https://github.com/fang2hou/blink-copilot"
+    },
+    "blink.cmp": {
+      "rev": "b19413d214068f316c78978b08264ed1c41830ec",
+      "src": "https://github.com/saghen/blink.cmp",
+      "version": "1.0.0 - 2.0.0"
+    },
     "cloak.nvim": {
       "rev": "648aca6d33ec011dc3166e7af3b38820d01a71e4",
       "src": "https://github.com/laytan/cloak.nvim"

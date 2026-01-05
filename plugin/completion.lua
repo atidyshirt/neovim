@@ -1,89 +1,86 @@
-local lazyload = require("utils.lazyload")
+vim.pack.add({
+  { src = "https://github.com/folke/sidekick.nvim" },
+  { src = "https://github.com/saghen/blink.cmp", version = vim.version.range("^1") },
+  { src = "https://github.com/zbirenbaum/copilot.lua" },
+  { src = "https://github.com/fang2hou/blink-copilot" },
+})
 
-lazyload({
-  packs = {
-    { src = "https://github.com/hrsh7th/nvim-cmp" },
-    { src = "https://github.com/hrsh7th/cmp-nvim-lsp" },
-    { src = "https://github.com/hrsh7th/cmp-buffer" },
-    { src = "https://github.com/hrsh7th/cmp-path" },
-    { src = "https://github.com/zbirenbaum/copilot.lua" },
-    { src = "https://github.com/zbirenbaum/copilot-cmp" },
-  },
-  trigger = { "InsertEnter" },
-  setup = function()
-    vim.opt.completeopt = { "menu", "menuone", "noinsert" }
-    vim.opt.shortmess:append("c")
-
+vim.api.nvim_create_autocmd("InsertEnter", {
+  pattern = "*",
+  once = true,
+  callback = function()
     require("copilot").setup({
       suggestion = { enabled = false },
       panel = { enabled = false },
     })
-    require("copilot_cmp").setup()
 
-    local cmp = require("cmp")
-
-    cmp.setup({
-      completion = {
-        autocomplete = { cmp.TriggerEvent.TextChanged },
-        completeopt = "menu,menuone,noinsert",
-      },
-
-      mapping = cmp.mapping.preset.insert({
-        ["<C-j>"] = cmp.mapping(function()
-          if cmp.visible() then
-            cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
-          else
-            cmp.complete()
-          end
-        end, { "i", "s" }),
-
-        ["<C-k>"] = cmp.mapping(function()
-          if cmp.visible() then
-            cmp.select_prev_item()
-          else
-            cmp.complete()
-          end
-        end, { "i", "s" }),
-
-        ["<C-e>"] = cmp.mapping(function(fallback)
-          if cmp.visible() then
-            cmp.abort()
-          else
-            fallback()
-          end
-        end),
-
-        ["<CR>"] = cmp.mapping.confirm({ select = true }),
-        ["<C-l>"] = cmp.mapping.confirm({ select = true }),
-        ["<C-d>"] = cmp.mapping.scroll_docs(4),
-        ["<C-u>"] = cmp.mapping.scroll_docs(-4),
-      }),
-
-      sources = cmp.config.sources({
-        { name = "copilot",  group_index = 2 },
-        { name = "nvim_lsp", group_index = 2 },
-        { name = "path",     group_index = 2 },
-        { name = "buffer",   group_index = 2 },
-      }),
-
-      window = {
-        documentation = cmp.config.window.bordered(),
-      },
-
-      formatting = {
-        fields = { "abbr", "menu", "kind" },
-        format = function(entry, vim_item)
-          if entry.source.name == "copilot" then
-            vim_item.kind = "   Copilot"
-            vim_item.kind_hl_group = "CmpItemKindCopilot"
-          end
-          return vim_item
-        end,
+    require("sidekick").setup({
+      cli = {
+        mux = {
+          backend = "tmux",
+          enabled = false,
+        },
       },
     })
 
-    local capabilities = vim.lsp.protocol.make_client_capabilities()
-    capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
-    vim.lsp.config("*", { capabilities })
+    vim.keymap.set({ "n", "x" }, "<leader>ai", function()
+      require("sidekick.cli").toggle()
+    end, { desc = "Sidekick Toggle" })
+
+    vim.keymap.set({ "n" }, "<leader>as", function()
+      require("sidekick.cli").select()
+    end, { desc = "Select CLI" })
+
+    vim.keymap.set({ "x" }, "<leader>av", function()
+      require("sidekick.cli").send({ msg = "{selection}" })
+    end, { desc = "Send Visual Selection" })
+
+    require("blink.cmp").setup({
+      keymap = {
+        preset = "default",
+        ['<CR>'] = { 'accept', 'fallback' },
+        ['<C-l>'] = { 'accept', 'fallback' },
+        ['<C-e>'] = { 'cancel', 'fallback' },
+        ["<Tab>"] = {
+          "snippet_forward",
+          'select_next',
+          function()
+            return require("sidekick").nes_jump_or_apply()
+          end,
+          "fallback",
+        },
+        ['<C-j>'] = { 'show', 'select_next', 'fallback_to_mappings' },
+        ['<S-Tab>'] = { 'snippet_backward', 'select_prev', 'fallback' },
+        ['<C-k>'] = { 'show', 'select_prev', 'fallback_to_mappings' },
+        ['<C-h>'] = { 'show_documentation', 'hide_documentation' },
+        ['<C-b>'] = { 'scroll_documentation_up', 'fallback' },
+        ['<C-f>'] = { 'scroll_documentation_down', 'fallback' },
+      },
+      appearance = {
+        nerd_font_variant = "mono",
+        use_nvim_cmp_as_default = true,
+      },
+      completion = {
+        documentation = { auto_show = false },
+      },
+      sources = {
+        default = {
+          "copilot",
+          "lsp",
+          "snippets",
+          "path",
+          "buffer"
+        },
+        providers = {
+          copilot = {
+            name = "copilot",
+            module = "blink-copilot",
+            score_offset = 100,
+            async = true,
+          },
+        },
+      },
+      fuzzy = { implementation = "prefer_rust_with_warning" },
+    })
   end,
 })
