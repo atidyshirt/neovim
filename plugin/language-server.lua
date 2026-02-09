@@ -29,7 +29,7 @@ lazyload({
 
     require("mason-lspconfig").setup({
       ensure_installed = {
-        "bashls", "gopls", "lua_ls", "texlab", "ts_ls", "rust_analyzer",
+        "bashls", "gopls", "lua_ls", "texlab", "tsgo", "rust_analyzer",
         "yamlls", "pyright", "cssls", "html", "copilot", "tofu_ls",
       },
       automatic_installation = true,
