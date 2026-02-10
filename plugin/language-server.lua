@@ -19,7 +19,8 @@ lazyload({
     { src = "https://github.com/cwrau/yaml-schema-detect.nvim" },
   },
 
-  trigger = { "BufReadPost", "BufNewFile" },
+  trigger = "FileType",
+  pattern = "*",
 
   setup = function()
     vim.env.PATH = vim.fn.stdpath("data") .. "/mason/bin:" .. vim.env.PATH
@@ -30,14 +31,14 @@ lazyload({
     require("mason-lspconfig").setup({
       ensure_installed = {
         "bashls", "gopls", "lua_ls", "texlab", "tsgo", "rust_analyzer",
-        "yamlls", "pyright", "cssls", "html", "copilot", "tofu_ls",
+        "yamlls", "pyright", "cssls", "html", "copilot", "terraformls",
       },
       automatic_installation = true,
     })
 
     vim.lsp.enable({
       "bashls", "gopls", "lua_ls", "texlab", "ts_ls", "rust_analyzer",
-      "yamlls", "pyright", "cssls", "html", "tofu_ls", "copilot",
+      "yamlls", "pyright", "cssls", "html", "terraformls", "copilot",
     })
 
     require("conform").setup({
@@ -48,8 +49,6 @@ lazyload({
         javascript = { "prettierd", "prettier", stop_after_first = true },
         typescript = { "prettierd", "prettier", stop_after_first = true },
         terraform = { "terraform_fmt" },
-        markdown = { "mdformat" },
-        tf = { "terraform_fmt" },
         ["terraform-vars"] = { "terraform_fmt" },
         yaml = { "prettierd", "prettier", stop_after_first = true },
         html = { "prettierd", "prettier", stop_after_first = true },
