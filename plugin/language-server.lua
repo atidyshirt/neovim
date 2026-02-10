@@ -1,4 +1,5 @@
 local lazyload = require("utils.lazyload")
+local lsp_map = require("modules.lsp_mapping")
 
 vim.diagnostic.config({ signs = true })
 vim.keymap.set({ "n", "v" }, "<leader>la", vim.lsp.buf.code_action, { desc = "Code Action" })
@@ -17,6 +18,7 @@ lazyload({
     { src = "https://github.com/b0o/SchemaStore.nvim" },
     { src = "https://github.com/folke/lazydev.nvim" },
     { src = "https://github.com/cwrau/yaml-schema-detect.nvim" },
+    { src = "https://github.com/qvalentin/helm-ls.nvim" }
   },
 
   trigger = "FileType",
@@ -28,32 +30,19 @@ lazyload({
       ensure_installed = { "yamlfmt" },
     })
 
+    local servers = lsp_map.get_servers()
     require("mason-lspconfig").setup({
-      ensure_installed = {
-        "bashls", "gopls", "lua_ls", "texlab", "tsgo", "rust_analyzer",
-        "yamlls", "pyright", "cssls", "html", "copilot", "terraformls", "helm_ls",
-      },
+      ensure_installed = servers,
       automatic_installation = true,
     })
 
-    vim.lsp.enable({
-      "bashls", "gopls", "lua_ls", "texlab", "ts_ls", "rust_analyzer",
-      "yamlls", "pyright", "cssls", "html", "terraformls", "helm_ls", "copilot",
-    } )
+    local servers2 = lsp_map.get_servers()
 
+    vim.lsp.enable(servers2)
+
+    local fmt = lsp_map.get_formatters_by_ft()
     require("conform").setup({
-      formatters_by_ft = {
-        lua = { "stylua" },
-        python = { "isort", "black" },
-        rust = { "rustfmt", lsp_format = "fallback" },
-        javascript = { "prettierd", "prettier", stop_after_first = true },
-        typescript = { "prettierd", "prettier", stop_after_first = true },
-        terraform = { "terraform_fmt" },
-        ["terraform-vars"] = { "terraform_fmt" },
-        yaml = { "prettierd", "prettier", stop_after_first = true },
-        html = { "prettierd", "prettier", stop_after_first = true },
-        css = { "prettierd", "prettier", stop_after_first = true },
-      },
+      formatters_by_ft = fmt,
     })
 
     require("lazydev").setup({
@@ -64,5 +53,10 @@ lazyload({
         { path = "wezterm-types", mods = { "wezterm" } },
       },
     })
+
+    -- Helm LS integration
+    pcall(require, "helm-ls")
+    local ok, helm_ls = pcall(require, "helm-ls")
+    if ok then helm_ls.setup({}) end
   end,
 })

@@ -8,14 +8,8 @@ lint.linters.oxlint.on_output = function(_, _)
   vim.api.nvim_exec_autocmds("User", { pattern = "DiagnosticChanged" })
 end
 
-lint.linters_by_ft = {
-  javascript = { "oxlint" },
-  typescript = { "oxlint" },
-  javascriptreact = { "oxlint" },
-  typescriptreact = { "oxlint" },
-  json = { "jsonlint" },
-  css = { "stylelint" },
-}
+local lsp_map = require("modules.lsp_mapping")
+lint.linters_by_ft = lsp_map.get_linters_by_ft()
 
 local lint_augroup = vim.api.nvim_create_augroup("lint", { clear = true })
 

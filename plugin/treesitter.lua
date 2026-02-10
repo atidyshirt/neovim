@@ -1,17 +1,13 @@
 local lazyload = require("utils.lazyload")
 
-local parsers = {
-  "bash", "html", "javascript", "json", "lua", "query", "regex",
-  "tsx", "typescript", "yaml", "scss", "dockerfile",
-  "markdown", "markdown_inline", "go", "python",
-}
+local parsers = require("modules.lsp_mapping").get_treesitter_parsers()
 
 lazyload({
   packs = {
     { src = "https://github.com/nvim-treesitter/nvim-treesitter", version = "main" },
     { src = "https://github.com/windwp/nvim-ts-autotag" },
   },
-  trigger = { "BufReadPost", "BufNewFile" },
+  trigger = "UIEnter",
   setup = function()
     local treesitter = require("nvim-treesitter")
     local autotag = require("nvim-ts-autotag")
@@ -46,5 +42,7 @@ lazyload({
         end
       end,
     })
+
+
   end,
 })

@@ -78,6 +78,10 @@
       "rev": "71a890a8c6264eb288979b38f7d496d9779846f3",
       "src": "https://github.com/atidyshirt/harpoon-tmux"
     },
+    "helm-ls.nvim": {
+      "rev": "f0b9a1723890971a6d84890b50dbf5f40974ea1b",
+      "src": "https://github.com/qvalentin/helm-ls.nvim"
+    },
     "lazydev.nvim": {
       "rev": "5231c62aa83c2f8dc8e7ba957aa77098cda1257d",
       "src": "https://github.com/folke/lazydev.nvim"
