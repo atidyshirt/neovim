@@ -31,15 +31,15 @@ lazyload({
     require("mason-lspconfig").setup({
       ensure_installed = {
         "bashls", "gopls", "lua_ls", "texlab", "tsgo", "rust_analyzer",
-        "yamlls", "pyright", "cssls", "html", "copilot", "terraformls",
+        "yamlls", "pyright", "cssls", "html", "copilot", "terraformls", "helm_ls",
       },
       automatic_installation = true,
     })
 
     vim.lsp.enable({
       "bashls", "gopls", "lua_ls", "texlab", "ts_ls", "rust_analyzer",
-      "yamlls", "pyright", "cssls", "html", "terraformls", "copilot",
-    })
+      "yamlls", "pyright", "cssls", "html", "terraformls", "helm_ls", "copilot",
+    } )
 
     require("conform").setup({
       formatters_by_ft = {

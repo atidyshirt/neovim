@@ -9,3 +9,17 @@ autocmd("TextYankPost", {
     end,
     group = highlight_group,
 })
+
+-- Filetype detection for Helm charts and Go templates
+vim.filetype.add({
+  extension = {
+    tmpl = "gotmpl",
+    gotmpl = "gotmpl",
+    tpl = "helm",
+  },
+  pattern = {
+    [".*/charts/.*%.ya?ml"] = "helm",
+    [".*/Charts/.*%.ya?ml"] = "helm",
+    [".*/templates/.*%.ya?ml"] = "helm",
+  },
+})
