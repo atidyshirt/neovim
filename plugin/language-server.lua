@@ -2,6 +2,8 @@ local lazyload = require("utils.lazyload")
 local lsp_map = require("modules.lsp_mapping")
 
 vim.diagnostic.config({ signs = true })
+vim.lsp.log.set_level(vim.log.levels.WARN)
+
 vim.keymap.set({ "n", "v" }, "<leader>la", vim.lsp.buf.code_action, { desc = "Code Action" })
 vim.keymap.set("n", "<leader>ll", vim.lsp.codelens.run, { desc = "CodeLens Action" })
 vim.keymap.set("n", "<leader>lr", vim.lsp.buf.rename, { desc = "Rename" })
