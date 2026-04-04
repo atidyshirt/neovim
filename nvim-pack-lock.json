@@ -151,6 +151,10 @@
       "rev": "b9fd5226c2f76c951fc8ed5923d85e4de065e509",
       "src": "https://github.com/nvim-lua/plenary.nvim"
     },
+    "poetry-nvim": {
+      "rev": "2b5da914d73cb88f951c3d06e7ffab8e615a0f5e",
+      "src": "https://github.com/karloskar/poetry-nvim"
+    },
     "quick-scope": {
       "rev": "6cee1d9e0b9ac0fbffeb538d4a5ba9f5628fabbc",
       "src": "https://github.com/unblevable/quick-scope"

@@ -35,7 +35,7 @@ M.mappings = {
     },
     { filetype = "bash", language_server = "bashls", treesitter = "bash" },
     {
-        language_server = "pyright",
+        language_server = "pylsp",
         filetype = "python",
         formatter = { "isort", "black" },
         treesitter = "python",

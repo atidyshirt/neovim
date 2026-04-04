@@ -6,9 +6,12 @@ vim.pack.add({
   { src = "https://github.com/mtdl9/vim-log-highlighting" },
   { src = "https://github.com/numToStr/Comment.nvim" },
   { src = "https://github.com/laytan/cloak.nvim" },
+  { src = "https://github.com/karloskar/poetry-nvim" },
 })
 
 require("Comment").setup()
+
+require("poetry-nvim").setup()
 
 require('cloak').setup({
   enabled = true,
