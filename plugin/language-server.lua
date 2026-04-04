@@ -10,6 +10,14 @@ vim.keymap.set("n", "<leader>lr", vim.lsp.buf.rename, { desc = "Rename" })
 vim.keymap.set("n", "<leader>lf", function()
   require("conform").format({ async = true })
 end, { desc = "Format" })
+vim.keymap.set("n", "<leader>ys", function()
+  vim.cmd.packadd("schema-companion.nvim")
+  require("schema-companion").select_schema()
+end, { desc = "Select Schema" })
+vim.keymap.set("n", "<leader>ym", function()
+  vim.cmd.packadd("schema-companion.nvim")
+  require("schema-companion").select_matching_schema()
+end, { desc = "Matching Schemas" })
 
 lazyload({
   packs = {
@@ -19,8 +27,7 @@ lazyload({
     { src = "https://github.com/stevearc/conform.nvim" },
     { src = "https://github.com/b0o/SchemaStore.nvim" },
     { src = "https://github.com/folke/lazydev.nvim" },
-    { src = "https://github.com/cwrau/yaml-schema-detect.nvim" },
-    { src = "https://github.com/qvalentin/helm-ls.nvim" }
+    { src = "https://github.com/cenk1cenk2/schema-companion.nvim" },
   },
 
   trigger = "FileType",
@@ -56,9 +63,8 @@ lazyload({
       },
     })
 
-    -- Helm LS integration
-    pcall(require, "helm-ls")
-    local ok, helm_ls = pcall(require, "helm-ls")
-    if ok then helm_ls.setup({}) end
+    require("schema-companion").setup({
+      log_level = vim.log.levels.WARN,
+    })
   end,
 })
