@@ -18,7 +18,8 @@ vim.api.nvim_create_autocmd("InsertEnter", {
       cli = {
         mux = {
           backend = "tmux",
-          enabled = false,
+          enabled = true,
+          create = "split",
         },
       },
     })
