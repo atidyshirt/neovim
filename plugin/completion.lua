@@ -9,10 +9,10 @@ vim.api.nvim_create_autocmd("InsertEnter", {
   pattern = "*",
   once = true,
   callback = function()
-    require("copilot").setup({
-      suggestion = { enabled = false },
-      panel = { enabled = false },
-    })
+    -- require("copilot").setup({
+    --   suggestion = { enabled = false },
+    --   panel = { enabled = false },
+    -- })
 
     require("sidekick").setup({
       cli = {
@@ -66,19 +66,19 @@ vim.api.nvim_create_autocmd("InsertEnter", {
       },
       sources = {
         default = {
-          "copilot",
+          -- "copilot",
           "lsp",
           "snippets",
           "path",
           "buffer"
         },
         providers = {
-          copilot = {
-            name = "copilot",
-            module = "blink-copilot",
-            score_offset = 100,
-            async = true,
-          },
+          -- copilot = {
+          --   name = "copilot",
+          --   module = "blink-copilot",
+          --   score_offset = 100,
+          --   async = true,
+          -- },
         },
       },
       fuzzy = { implementation = "prefer_rust_with_warning" },
