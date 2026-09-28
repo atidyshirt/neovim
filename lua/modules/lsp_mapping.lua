@@ -65,7 +65,7 @@ M.mappings = {
         filetype = "html",
         formatter = { "prettierd", "prettier", stop_after_first = true },
     },
-    { language_server = "copilot" },
+    -- { language_server = "copilot" },
 }
 
 local function each_ft(entry, cb)

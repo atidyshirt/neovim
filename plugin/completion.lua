@@ -1,8 +1,8 @@
 vim.pack.add({
   { src = "https://github.com/folke/sidekick.nvim" },
   { src = "https://github.com/saghen/blink.cmp", version = vim.version.range("^1") },
-  { src = "https://github.com/zbirenbaum/copilot.lua" },
-  { src = "https://github.com/fang2hou/blink-copilot" },
+  -- { src = "https://github.com/zbirenbaum/copilot.lua" },
+  -- { src = "https://github.com/fang2hou/blink-copilot" },
 })
 
 vim.api.nvim_create_autocmd("InsertEnter", {
