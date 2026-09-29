@@ -1,20 +1,16 @@
 vim.pack.add({
   { src = "https://github.com/folke/sidekick.nvim" },
   { src = "https://github.com/saghen/blink.cmp", version = vim.version.range("^1") },
-  -- { src = "https://github.com/zbirenbaum/copilot.lua" },
-  -- { src = "https://github.com/fang2hou/blink-copilot" },
 })
 
 vim.api.nvim_create_autocmd("InsertEnter", {
   pattern = "*",
   once = true,
   callback = function()
-    -- require("copilot").setup({
-    --   suggestion = { enabled = false },
-    --   panel = { enabled = false },
-    -- })
-
     require("sidekick").setup({
+      -- NES (Next Edit Suggestions) requires a GitHub Copilot subscription;
+      -- only the CLI integration (agnostic across Claude/Gemini/etc.) is used here.
+      nes = { enabled = false },
       cli = {
         mux = {
           backend = "tmux",
@@ -42,14 +38,7 @@ vim.api.nvim_create_autocmd("InsertEnter", {
         ['<CR>'] = { 'accept', 'fallback' },
         ['<C-l>'] = { 'accept', 'fallback' },
         ['<C-e>'] = { 'cancel', 'fallback' },
-        ["<Tab>"] = {
-          "snippet_forward",
-          'select_next',
-          function()
-            return require("sidekick").nes_jump_or_apply()
-          end,
-          "fallback",
-        },
+        ["<Tab>"] = { "snippet_forward", 'select_next', "fallback" },
         ['<C-j>'] = { 'show', 'select_next', 'fallback_to_mappings' },
         ['<S-Tab>'] = { 'snippet_backward', 'select_prev', 'fallback' },
         ['<C-k>'] = { 'show', 'select_prev', 'fallback_to_mappings' },
@@ -65,21 +54,7 @@ vim.api.nvim_create_autocmd("InsertEnter", {
         documentation = { auto_show = false },
       },
       sources = {
-        default = {
-          -- "copilot",
-          "lsp",
-          "snippets",
-          "path",
-          "buffer"
-        },
-        providers = {
-          -- copilot = {
-          --   name = "copilot",
-          --   module = "blink-copilot",
-          --   score_offset = 100,
-          --   async = true,
-          -- },
-        },
+        default = { "lsp", "snippets", "path", "buffer" },
       },
       fuzzy = { implementation = "prefer_rust_with_warning" },
     })
