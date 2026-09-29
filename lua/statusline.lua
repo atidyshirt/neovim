@@ -106,6 +106,22 @@ function M.filetype_component()
     return string.format('%%#%s#%s %%#StatuslineTitle#%s', icon_hl, icon, filetype)
 end
 
+--- The active JSON schema for the buffer, via schema-companion (if loaded and matched).
+---@return string
+function M.schema_component()
+    if not package.loaded['schema-companion'] then
+        return ''
+    end
+
+    local current = require('schema-companion').get_current_schemas()
+    if not current then
+        return ''
+    end
+
+    local text = string.format('%s %s', icons.misc.schema, current):sub(1, 128)
+    return string.format('%%#%s#%s', M.get_or_create_hl('Special'), text)
+end
+
 function M.position_component()
   return ' %3l:%-3v'
 end
@@ -129,6 +145,7 @@ function M.render()
         concat_components {
             M.diagnostics_component(),
             M.filetype_component(),
+            M.schema_component(),
             M.position_component(),
         },
         ' ',

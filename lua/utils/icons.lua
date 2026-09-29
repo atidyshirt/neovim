@@ -50,6 +50,7 @@ M.symbol_kinds = {
 M.misc = {
     bug = '',
     git = '',
+    schema = '󰘦',
     search = '',
     vertical_bar = '│',
 }
