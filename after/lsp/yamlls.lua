@@ -43,7 +43,7 @@ return require("schema-companion").setup_client(
         schemaDownload = { enable = true },
         schemas = vim.tbl_extend("force", require("schemastore").yaml.schemas(), {
           -- Kubernetes
-          ["https://raw.githubusercontent.com/yannh/kubernetes-json-schema/master/master-standalone-strict/all.json"] = { "{manifests,k8s,kubernetes,addons,applications}/**/*.{yml,yaml}" },
+          ["https://raw.githubusercontent.com/yannh/kubernetes-json-schema/master/master-standalone-strict/all.json"] = { "{manifests,k8s,kubernetes,addons,applications,base}/**/*.{yml,yaml}" },
           ["https://raw.githubusercontent.com/argoproj/argo-workflows/master/api/jsonschema/schema.json"] = { "*argocd*.{yml,yaml}" },
           ["http://json.schemastore.org/kustomization"] = { "kustomization.ya?ml" },
           ["http://json.schemastore.org/chart"] = { "Chart.ya?ml" },
