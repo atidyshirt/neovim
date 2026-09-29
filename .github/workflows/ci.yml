@@ -42,6 +42,8 @@ jobs:
     permissions:
       contents: write
       pull-requests: write
+    outputs:
+      version: ${{ steps.semantic.outputs.version }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -49,9 +51,45 @@ jobs:
           fetch-depth: 0
 
       - name: Semantic Release
+        id: semantic
         uses: go-semantic-release/action@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           changelog-file: CHANGELOG.md
           allow-initial-development-versions: true
+
+  # Bumps jordanp-env's pinned neovim tag to the release just cut above, so
+  # `nix run github:atidyshirt/jordanp-env#neovim` tracks tagged releases of
+  # this repo rather than floating on whatever's on the default branch.
+  sync-jordanp-env:
+    needs: release
+    if: needs.release.outputs.version != ''
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout jordanp-env
+        uses: actions/checkout@v4
+        with:
+          repository: atidyshirt/jordanp-env
+          token: ${{ secrets.JORDANP_ENV_PUSH_TOKEN }}
+
+      - uses: cachix/install-nix-action@v31
+        with:
+          extra_nix_config: |
+            experimental-features = nix-command flakes
+
+      - name: Bump neovim input to the new tag
+        run: |
+          tag="v${{ needs.release.outputs.version }}"
+          sed -i -E "s#(url = \"github:atidyshirt/neovim)(/[^\"]*)?(\")#\1/${tag}\3#" flake.nix
+          nix flake lock --update-input neovim
+
+      - name: Commit and push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          if ! git diff --quiet -- flake.nix flake.lock; then
+            git add flake.nix flake.lock
+            git commit -m "chore: bump neovim to v${{ needs.release.outputs.version }}"
+            git push
+          fi
