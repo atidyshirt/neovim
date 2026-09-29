@@ -13,7 +13,7 @@ lazyload({
     local autotag = require("nvim-ts-autotag")
 
     treesitter.setup({ install_dir = vim.fn.stdpath('data') .. '/site' })
-    treesitter.install(parsers):wait(300000)
+    treesitter.install(parsers)
 
     autotag.setup({
       opts = {

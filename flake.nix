@@ -23,6 +23,7 @@
           python3Minimal
           luajit
           cacert
+          tree-sitter
         ];
 
         nvim = pkgs.writeShellApplication {
